@@ -1,0 +1,410 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ExpeditionModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Branch">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Province_Id" Type="String" MaxLength="2" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="Regency_Id" Type="String" MaxLength="4" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="District_Id" Type="String" MaxLength="7" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="Village_Id" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="Address" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Warehouse_Id" Type="Int32" Nullable="false" />
+    <Property Name="Price" Type="Int32" />
+    <NavigationProperty Name="Village" Relationship="Self.FK_BRANCHS_VILLAGES" FromRole="Branchs" ToRole="Villages" />
+    <NavigationProperty Name="Warehouse" Relationship="Self.FK_BRANCHS_WAREHOUSES" FromRole="Branchs" ToRole="Warehouses" />
+    <NavigationProperty Name="Employees" Relationship="Self.FK_EMPLOYEES_BRANCHS" FromRole="Branchs" ToRole="Employees" />
+  </EntityType>
+  <EntityType Name="Category">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Shippings" Relationship="Self.FK_SHIPPINGS_CATEGORIES" FromRole="Categories" ToRole="Shippings" />
+  </EntityType>
+  <EntityType Name="District">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="String" MaxLength="7" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="Regency_Id" Type="String" MaxLength="4" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Regency" Relationship="Self.FK_DISTRICTS_REGENCIES" FromRole="Districts" ToRole="Regencies" />
+    <NavigationProperty Name="Villages" Relationship="Self.FK_VILLAGES_VILLAGES" FromRole="Districts" ToRole="Villages" />
+  </EntityType>
+  <EntityType Name="Employee">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Position" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="Username" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Password" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Branch_Id" Type="Int32" />
+    <NavigationProperty Name="Branch" Relationship="Self.FK_EMPLOYEES_BRANCHS" FromRole="Employees" ToRole="Branchs" />
+    <NavigationProperty Name="Shippings" Relationship="Self.FK_SHIPPINGS_EMPLOYEES" FromRole="Employees" ToRole="Shippings" />
+  </EntityType>
+  <EntityType Name="HistoryShipping">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Shipping_Id" Type="Int32" Nullable="false" />
+    <Property Name="Employee_Id" Type="Int32" Nullable="false" />
+    <Property Name="StatusShipping_Id" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Shipping" Relationship="Self.FK_HISTORY_SHIPPING_SHIPPINGS" FromRole="HistoryShippings" ToRole="Shippings" />
+  </EntityType>
+  <EntityType Name="Package">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Price" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+    <NavigationProperty Name="Shippings" Relationship="Self.FK_SHIPPINGS_PACKAGES" FromRole="Packages" ToRole="Shippings" />
+  </EntityType>
+  <EntityType Name="Province">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="String" MaxLength="7" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Regencies" Relationship="Self.FK_REGENCIES_PROVINCES" FromRole="Provinces" ToRole="Regencies" />
+  </EntityType>
+  <EntityType Name="Regency">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="String" MaxLength="4" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="Province_Id" Type="String" MaxLength="7" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Districts" Relationship="Self.FK_DISTRICTS_REGENCIES" FromRole="Regencies" ToRole="Districts" />
+    <NavigationProperty Name="Province" Relationship="Self.FK_REGENCIES_PROVINCES" FromRole="Regencies" ToRole="Provinces" />
+  </EntityType>
+  <EntityType Name="Shipping">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Date" Type="DateTime" Precision="3" />
+    <Property Name="Quantity" Type="Int32" Nullable="false" />
+    <Property Name="Assurances" Type="Int32" />
+    <Property Name="Weight" Type="Int32" Nullable="false" />
+    <Property Name="Category_Id" Type="Int32" Nullable="false" />
+    <Property Name="SenderName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="SenderPhone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="SenderProvince_Id" Type="String" MaxLength="2" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="SenderRegency_Id" Type="String" MaxLength="4" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="SenderDistrict_Id" Type="String" MaxLength="7" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="SenderVillage_Id" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="SenderAddress" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="ReceiverName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="ReceiverPhone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="ReceiverProvince_Id" Type="String" MaxLength="2" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="ReceiverRegency_Id" Type="String" MaxLength="4" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="ReceiverDistrict_Id" Type="String" MaxLength="7" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="ReceiverVillage_Id" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="ReceiverAddress" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Price" Type="Int32" Nullable="false" />
+    <Property Name="TotalPrice" Type="Int32" />
+    <Property Name="StatusShippings_Id" Type="Int32" Nullable="false" />
+    <Property Name="Employee_Id" Type="Int32" Nullable="false" />
+    <Property Name="Package_Id" Type="Int32" Nullable="false" />
+    <Property Name="Destination_Branch_Id" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Category" Relationship="Self.FK_SHIPPINGS_CATEGORIES" FromRole="Shippings" ToRole="Categories" />
+    <NavigationProperty Name="Employee" Relationship="Self.FK_SHIPPINGS_EMPLOYEES" FromRole="Shippings" ToRole="Employees" />
+    <NavigationProperty Name="HistoryShippings" Relationship="Self.FK_HISTORY_SHIPPING_SHIPPINGS" FromRole="Shippings" ToRole="HistoryShippings" />
+    <NavigationProperty Name="Package" Relationship="Self.FK_SHIPPINGS_PACKAGES" FromRole="Shippings" ToRole="Packages" />
+    <NavigationProperty Name="StatusShipping" Relationship="Self.FK_SHIPPINGS_STATUS_SHIPPING" FromRole="Shippings" ToRole="StatusShippings" />
+    <NavigationProperty Name="Village" Relationship="Self.FK_SHIPPINGS_VILLAGES" FromRole="Shippings" ToRole="Villages" />
+    <NavigationProperty Name="Village1" Relationship="Self.FK_SHIPPINGS_VILLAGES1" FromRole="Shippings" ToRole="Villages" />
+  </EntityType>
+  <EntityType Name="StatusShipping">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Shippings" Relationship="Self.FK_SHIPPINGS_STATUS_SHIPPING" FromRole="StatusShippings" ToRole="Shippings" />
+  </EntityType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="Village">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="District_Id" Type="String" MaxLength="7" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Branchs" Relationship="Self.FK_BRANCHS_VILLAGES" FromRole="Villages" ToRole="Branchs" />
+    <NavigationProperty Name="District" Relationship="Self.FK_VILLAGES_VILLAGES" FromRole="Villages" ToRole="Districts" />
+    <NavigationProperty Name="Shippings" Relationship="Self.FK_SHIPPINGS_VILLAGES" FromRole="Villages" ToRole="Shippings" />
+    <NavigationProperty Name="Shippings1" Relationship="Self.FK_SHIPPINGS_VILLAGES1" FromRole="Villages" ToRole="Shippings" />
+    <NavigationProperty Name="Warehouses" Relationship="Self.FK_WAREHOUSES_VILLAGES" FromRole="Villages" ToRole="Warehouses" />
+  </EntityType>
+  <EntityType Name="Warehouse">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Province_Id" Type="String" MaxLength="2" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="Regency_Id" Type="String" MaxLength="4" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="District_Id" Type="String" MaxLength="7" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="Village_Id" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="Address" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Branchs" Relationship="Self.FK_BRANCHS_WAREHOUSES" FromRole="Warehouses" ToRole="Branchs" />
+    <NavigationProperty Name="Village" Relationship="Self.FK_WAREHOUSES_VILLAGES" FromRole="Warehouses" ToRole="Villages" />
+  </EntityType>
+  <Association Name="FK_BRANCHS_VILLAGES">
+    <End Role="Villages" Type="Self.Village" Multiplicity="1" />
+    <End Role="Branchs" Type="Self.Branch" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Villages">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Branchs">
+        <PropertyRef Name="Village_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_BRANCHS_WAREHOUSES">
+    <End Role="Warehouses" Type="Self.Warehouse" Multiplicity="1" />
+    <End Role="Branchs" Type="Self.Branch" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Warehouses">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Branchs">
+        <PropertyRef Name="Warehouse_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EMPLOYEES_BRANCHS">
+    <End Role="Branchs" Type="Self.Branch" Multiplicity="0..1" />
+    <End Role="Employees" Type="Self.Employee" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Branchs">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Employees">
+        <PropertyRef Name="Branch_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SHIPPINGS_CATEGORIES">
+    <End Role="Categories" Type="Self.Category" Multiplicity="1" />
+    <End Role="Shippings" Type="Self.Shipping" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Categories">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Shippings">
+        <PropertyRef Name="Category_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DISTRICTS_REGENCIES">
+    <End Role="Regencies" Type="Self.Regency" Multiplicity="1" />
+    <End Role="Districts" Type="Self.District" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Regencies">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Districts">
+        <PropertyRef Name="Regency_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_VILLAGES_VILLAGES">
+    <End Role="Districts" Type="Self.District" Multiplicity="1" />
+    <End Role="Villages" Type="Self.Village" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Districts">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Villages">
+        <PropertyRef Name="District_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SHIPPINGS_EMPLOYEES">
+    <End Role="Employees" Type="Self.Employee" Multiplicity="1" />
+    <End Role="Shippings" Type="Self.Shipping" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employees">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Shippings">
+        <PropertyRef Name="Employee_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_HISTORY_SHIPPING_SHIPPINGS">
+    <End Role="Shippings" Type="Self.Shipping" Multiplicity="1" />
+    <End Role="HistoryShippings" Type="Self.HistoryShipping" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Shippings">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="HistoryShippings">
+        <PropertyRef Name="Shipping_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SHIPPINGS_PACKAGES">
+    <End Role="Packages" Type="Self.Package" Multiplicity="1" />
+    <End Role="Shippings" Type="Self.Shipping" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Packages">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Shippings">
+        <PropertyRef Name="Package_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_REGENCIES_PROVINCES">
+    <End Role="Provinces" Type="Self.Province" Multiplicity="1" />
+    <End Role="Regencies" Type="Self.Regency" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Provinces">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Regencies">
+        <PropertyRef Name="Province_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SHIPPINGS_STATUS_SHIPPING">
+    <End Role="StatusShippings" Type="Self.StatusShipping" Multiplicity="1" />
+    <End Role="Shippings" Type="Self.Shipping" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="StatusShippings">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Shippings">
+        <PropertyRef Name="StatusShippings_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SHIPPINGS_VILLAGES">
+    <End Role="Villages" Type="Self.Village" Multiplicity="1" />
+    <End Role="Shippings" Type="Self.Shipping" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Villages">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Shippings">
+        <PropertyRef Name="SenderVillage_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SHIPPINGS_VILLAGES1">
+    <End Role="Villages" Type="Self.Village" Multiplicity="1" />
+    <End Role="Shippings" Type="Self.Shipping" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Villages">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Shippings">
+        <PropertyRef Name="ReceiverVillage_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_WAREHOUSES_VILLAGES">
+    <End Role="Villages" Type="Self.Village" Multiplicity="1" />
+    <End Role="Warehouses" Type="Self.Warehouse" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Villages">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Warehouses">
+        <PropertyRef Name="Village_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="ExpeditionEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Branchs" EntityType="Self.Branch" />
+    <EntitySet Name="Categories" EntityType="Self.Category" />
+    <EntitySet Name="Districts" EntityType="Self.District" />
+    <EntitySet Name="Employees" EntityType="Self.Employee" />
+    <EntitySet Name="HistoryShippings" EntityType="Self.HistoryShipping" />
+    <EntitySet Name="Packages" EntityType="Self.Package" />
+    <EntitySet Name="Provinces" EntityType="Self.Province" />
+    <EntitySet Name="Regencies" EntityType="Self.Regency" />
+    <EntitySet Name="Shippings" EntityType="Self.Shipping" />
+    <EntitySet Name="StatusShippings" EntityType="Self.StatusShipping" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+    <EntitySet Name="Villages" EntityType="Self.Village" />
+    <EntitySet Name="Warehouses" EntityType="Self.Warehouse" />
+    <AssociationSet Name="FK_BRANCHS_VILLAGES" Association="Self.FK_BRANCHS_VILLAGES">
+      <End Role="Villages" EntitySet="Villages" />
+      <End Role="Branchs" EntitySet="Branchs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_BRANCHS_WAREHOUSES" Association="Self.FK_BRANCHS_WAREHOUSES">
+      <End Role="Warehouses" EntitySet="Warehouses" />
+      <End Role="Branchs" EntitySet="Branchs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EMPLOYEES_BRANCHS" Association="Self.FK_EMPLOYEES_BRANCHS">
+      <End Role="Branchs" EntitySet="Branchs" />
+      <End Role="Employees" EntitySet="Employees" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SHIPPINGS_CATEGORIES" Association="Self.FK_SHIPPINGS_CATEGORIES">
+      <End Role="Categories" EntitySet="Categories" />
+      <End Role="Shippings" EntitySet="Shippings" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DISTRICTS_REGENCIES" Association="Self.FK_DISTRICTS_REGENCIES">
+      <End Role="Regencies" EntitySet="Regencies" />
+      <End Role="Districts" EntitySet="Districts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_VILLAGES_VILLAGES" Association="Self.FK_VILLAGES_VILLAGES">
+      <End Role="Districts" EntitySet="Districts" />
+      <End Role="Villages" EntitySet="Villages" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SHIPPINGS_EMPLOYEES" Association="Self.FK_SHIPPINGS_EMPLOYEES">
+      <End Role="Employees" EntitySet="Employees" />
+      <End Role="Shippings" EntitySet="Shippings" />
+    </AssociationSet>
+    <AssociationSet Name="FK_HISTORY_SHIPPING_SHIPPINGS" Association="Self.FK_HISTORY_SHIPPING_SHIPPINGS">
+      <End Role="Shippings" EntitySet="Shippings" />
+      <End Role="HistoryShippings" EntitySet="HistoryShippings" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SHIPPINGS_PACKAGES" Association="Self.FK_SHIPPINGS_PACKAGES">
+      <End Role="Packages" EntitySet="Packages" />
+      <End Role="Shippings" EntitySet="Shippings" />
+    </AssociationSet>
+    <AssociationSet Name="FK_REGENCIES_PROVINCES" Association="Self.FK_REGENCIES_PROVINCES">
+      <End Role="Provinces" EntitySet="Provinces" />
+      <End Role="Regencies" EntitySet="Regencies" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SHIPPINGS_STATUS_SHIPPING" Association="Self.FK_SHIPPINGS_STATUS_SHIPPING">
+      <End Role="StatusShippings" EntitySet="StatusShippings" />
+      <End Role="Shippings" EntitySet="Shippings" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SHIPPINGS_VILLAGES" Association="Self.FK_SHIPPINGS_VILLAGES">
+      <End Role="Villages" EntitySet="Villages" />
+      <End Role="Shippings" EntitySet="Shippings" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SHIPPINGS_VILLAGES1" Association="Self.FK_SHIPPINGS_VILLAGES1">
+      <End Role="Villages" EntitySet="Villages" />
+      <End Role="Shippings" EntitySet="Shippings" />
+    </AssociationSet>
+    <AssociationSet Name="FK_WAREHOUSES_VILLAGES" Association="Self.FK_WAREHOUSES_VILLAGES">
+      <End Role="Villages" EntitySet="Villages" />
+      <End Role="Warehouses" EntitySet="Warehouses" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

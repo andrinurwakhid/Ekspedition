@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="d2f62b7bd66a49de913d08e5d96baada" Name="Diagram1">
+        <EntityTypeShape EntityType="ExpeditionModel.Branch" Width="1.5" PointX="12" PointY="7.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExpeditionModel.Category" Width="1.5" PointX="14.25" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExpeditionModel.District" Width="1.5" PointX="5.25" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExpeditionModel.Employee" Width="1.5" PointX="14.25" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExpeditionModel.HistoryShipping" Width="1.5" PointX="18.75" PointY="6.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExpeditionModel.Package" Width="1.5" PointX="14.25" PointY="11" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExpeditionModel.Province" Width="1.5" PointX="0.75" PointY="6" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExpeditionModel.Regency" Width="1.5" PointX="3" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExpeditionModel.Shipping" Width="1.5" PointX="16.5" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExpeditionModel.StatusShipping" Width="1.5" PointX="14.25" PointY="13.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExpeditionModel.sysdiagram" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExpeditionModel.Village" Width="1.5" PointX="7.5" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExpeditionModel.Warehouse" Width="1.5" PointX="9.75" PointY="9.5" IsExpanded="true" />
+        <AssociationConnector Association="ExpeditionModel.FK_BRANCHS_VILLAGES" ManuallyRouted="false" />
+        <AssociationConnector Association="ExpeditionModel.FK_BRANCHS_WAREHOUSES" ManuallyRouted="false" />
+        <AssociationConnector Association="ExpeditionModel.FK_EMPLOYEES_BRANCHS" ManuallyRouted="false" />
+        <AssociationConnector Association="ExpeditionModel.FK_SHIPPINGS_CATEGORIES" ManuallyRouted="false" />
+        <AssociationConnector Association="ExpeditionModel.FK_DISTRICTS_REGENCIES" ManuallyRouted="false" />
+        <AssociationConnector Association="ExpeditionModel.FK_VILLAGES_VILLAGES" ManuallyRouted="false" />
+        <AssociationConnector Association="ExpeditionModel.FK_SHIPPINGS_EMPLOYEES" ManuallyRouted="false" />
+        <AssociationConnector Association="ExpeditionModel.FK_HISTORY_SHIPPING_SHIPPINGS" ManuallyRouted="false" />
+        <AssociationConnector Association="ExpeditionModel.FK_SHIPPINGS_PACKAGES" ManuallyRouted="false" />
+        <AssociationConnector Association="ExpeditionModel.FK_REGENCIES_PROVINCES" ManuallyRouted="false" />
+        <AssociationConnector Association="ExpeditionModel.FK_SHIPPINGS_STATUS_SHIPPING" ManuallyRouted="false" />
+        <AssociationConnector Association="ExpeditionModel.FK_SHIPPINGS_VILLAGES" ManuallyRouted="false" />
+        <AssociationConnector Association="ExpeditionModel.FK_SHIPPINGS_VILLAGES1" ManuallyRouted="false" />
+        <AssociationConnector Association="ExpeditionModel.FK_WAREHOUSES_VILLAGES" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
