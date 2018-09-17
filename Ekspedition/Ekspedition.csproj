@@ -176,8 +176,21 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\BranchesController.cs" />
+    <Compile Include="Controllers\CategoriesController.cs" />
+    <Compile Include="Controllers\DashboardAdminController.cs" />
+    <Compile Include="Controllers\DistrictsController.cs" />
+    <Compile Include="Controllers\EmployeesController.cs" />
+    <Compile Include="Controllers\HistoryShippingsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\PackagesController.cs" />
+    <Compile Include="Controllers\ProvincesController.cs" />
+    <Compile Include="Controllers\RegenciesController.cs" />
+    <Compile Include="Controllers\ShippingsController.cs" />
+    <Compile Include="Controllers\StatusShippingsController.cs" />
+    <Compile Include="Controllers\VillagesController.cs" />
+    <Compile Include="Controllers\WarehousesController.cs" />
     <Compile Include="District.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -236,6 +249,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\assets\images\icon\new logistics.png" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -4164,6 +4178,68 @@
     <Content Include="Views\Shared\_Admin.cshtml" />
     <Content Include="Views\Shared\_Header.cshtml" />
     <Content Include="Views\Shared\_LeftPanel.cshtml" />
+    <Content Include="Views\Provinces\Create.cshtml" />
+    <Content Include="Views\Provinces\Delete.cshtml" />
+    <Content Include="Views\Provinces\Details.cshtml" />
+    <Content Include="Views\Provinces\Edit.cshtml" />
+    <Content Include="Views\Provinces\Index.cshtml" />
+    <Content Include="Views\Regencies\Create.cshtml" />
+    <Content Include="Views\Regencies\Delete.cshtml" />
+    <Content Include="Views\Regencies\Details.cshtml" />
+    <Content Include="Views\Regencies\Edit.cshtml" />
+    <Content Include="Views\Regencies\Index.cshtml" />
+    <Content Include="Views\Districts\Create.cshtml" />
+    <Content Include="Views\Districts\Delete.cshtml" />
+    <Content Include="Views\Districts\Details.cshtml" />
+    <Content Include="Views\Districts\Edit.cshtml" />
+    <Content Include="Views\Districts\Index.cshtml" />
+    <Content Include="Views\Villages\Create.cshtml" />
+    <Content Include="Views\Villages\Delete.cshtml" />
+    <Content Include="Views\Villages\Details.cshtml" />
+    <Content Include="Views\Villages\Edit.cshtml" />
+    <Content Include="Views\Villages\Index.cshtml" />
+    <Content Include="Views\Packages\Create.cshtml" />
+    <Content Include="Views\Packages\Delete.cshtml" />
+    <Content Include="Views\Packages\Details.cshtml" />
+    <Content Include="Views\Packages\Edit.cshtml" />
+    <Content Include="Views\Packages\Index.cshtml" />
+    <Content Include="Views\StatusShippings\Create.cshtml" />
+    <Content Include="Views\StatusShippings\Delete.cshtml" />
+    <Content Include="Views\StatusShippings\Details.cshtml" />
+    <Content Include="Views\StatusShippings\Edit.cshtml" />
+    <Content Include="Views\StatusShippings\Index.cshtml" />
+    <Content Include="Views\Warehouses\Create.cshtml" />
+    <Content Include="Views\Warehouses\Delete.cshtml" />
+    <Content Include="Views\Warehouses\Details.cshtml" />
+    <Content Include="Views\Warehouses\Edit.cshtml" />
+    <Content Include="Views\Warehouses\Index.cshtml" />
+    <Content Include="Views\Branches\Create.cshtml" />
+    <Content Include="Views\Branches\Delete.cshtml" />
+    <Content Include="Views\Branches\Details.cshtml" />
+    <Content Include="Views\Branches\Edit.cshtml" />
+    <Content Include="Views\Branches\Index.cshtml" />
+    <Content Include="Views\Categories\Create.cshtml" />
+    <Content Include="Views\Categories\Delete.cshtml" />
+    <Content Include="Views\Categories\Details.cshtml" />
+    <Content Include="Views\Categories\Edit.cshtml" />
+    <Content Include="Views\Categories\Index.cshtml" />
+    <Content Include="Views\Employees\Create.cshtml" />
+    <Content Include="Views\Employees\Delete.cshtml" />
+    <Content Include="Views\Employees\Details.cshtml" />
+    <Content Include="Views\Employees\Edit.cshtml" />
+    <Content Include="Views\Employees\Index.cshtml" />
+    <Content Include="Views\Shippings\Create.cshtml" />
+    <Content Include="Views\Shippings\Delete.cshtml" />
+    <Content Include="Views\Shippings\Details.cshtml" />
+    <Content Include="Views\Shippings\Edit.cshtml" />
+    <Content Include="Views\Shippings\Index.cshtml" />
+    <Content Include="Views\HistoryShippings\Create.cshtml" />
+    <Content Include="Views\HistoryShippings\Delete.cshtml" />
+    <Content Include="Views\HistoryShippings\Details.cshtml" />
+    <Content Include="Views\HistoryShippings\Edit.cshtml" />
+    <Content Include="Views\HistoryShippings\Index.cshtml" />
+    <Content Include="Views\DashboardAdmin\Index.cshtml" />
+    <Content Include="Views\DashboardAdmin\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
