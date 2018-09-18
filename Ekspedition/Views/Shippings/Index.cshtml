@@ -4,174 +4,148 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
+<h2><b>Shipping</b></h2>
+<p style="text-align:right">
+    <a class="btn btn-outline-success" style="border-radius: 13px;" href="@Url.Action("Create", "Shippings")">Create New</a>
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Date)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Quantity)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Assurances)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Weight)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.SenderName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.SenderPhone)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.SenderProvince_Id)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.SenderRegency_Id)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.SenderDistrict_Id)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.SenderAddress)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ReceiverName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ReceiverPhone)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ReceiverProvince_Id)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ReceiverRegency_Id)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ReceiverDistrict_Id)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ReceiverAddress)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Price)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.TotalPrice)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Destination_Branch_Id)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Category.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Employee.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Package.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.StatusShipping.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Village.District_Id)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Village1.District_Id)
-        </th>
-        <th></th>
-    </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Date)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Quantity)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Assurances)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Weight)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SenderName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SenderPhone)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SenderProvince_Id)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SenderRegency_Id)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SenderDistrict_Id)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SenderAddress)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ReceiverName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ReceiverPhone)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ReceiverProvince_Id)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ReceiverRegency_Id)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ReceiverDistrict_Id)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ReceiverAddress)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Price)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TotalPrice)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Destination_Branch_Id)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Category.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Employee.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Package.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.StatusShipping.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Village.District_Id)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Village1.District_Id)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
-}
+<link href="~/Content/assets/css/style.css" rel="stylesheet">
+<link rel="stylesheet" href="~/Content/assets/scss/style.css">
+<link href="~/Content/assets/css/colors/blue.css" id="theme" rel="stylesheet">
 
-</table>
+<div class="row">
+    <div class="col-12">
+        <div class="card" id="liststatus">
+            <div class="card-body">
+                <div class="table-responsive m-t-5">
+                    <table id="example" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>
+                                    Date
+                                </th>
+                                <th>
+                                    Destination Branch
+                                </th>
+                                <th>
+                                    Category
+                                </th>
+                                <th>
+                                    Employee
+                                </th>
+                                <th>
+                                    Package
+                                </th>
+                                <th>
+                                    Status Shipping
+                                </th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Date)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Employee.Branch.Name)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Category.Name)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Employee.Name)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Package.Name)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.StatusShipping.Name)
+                                    </td>
+                                    <td>
+                                        <a class="btn btn-warning" style="border-radius: 13px;" href="@Url.Action("Edit", "Shippings", new { id = item.Id })">Edit</a>
+                                        <a class="btn btn-info" style="border-radius: 13px;" href="@Url.Action("Details", "Shippings", new { id = item.Id })">Details</a>
+                                        <a class="btn btn-danger" style="border-radius: 13px;" href="@Url.Action("Delete", "Shippings", new { id = item.Id })">Delete</a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/Content/assets/plugins/jquery/jquery.min.js"></script>
+<!-- Bootstrap tether Core JavaScript -->
+@*<script src="~/Content/assets/plugins/bootstrap/js/popper.min.js"></script>*@ <!--bikin eror dropdown-->
+<script src="~/Content/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+<!-- slimscrollbar scrollbar JavaScript -->
+<script src="~/Content/assets/js/jquery.slimscroll.js"></script>
+<!--Wave Effects -->
+<script src="~/Content/assets/js/waves.js"></script>
+<!--Menu sidebar -->
+<script src="~/Content/assets/js/sidebarmenu.js"></script>
+<!--stickey kit -->
+<script src="~/Content/assets/plugins/sticky-kit-master/dist/sticky-kit.min.js"></script>
+<!--Custom JavaScript -->
+<script src="~/Content/assets/js/custom.min.js"></script>
+<!-- This is data table -->
+<script src="~/Content/assets/plugins/datatables/jquery.dataTables.min.js"></script>
+<!-- start - This is for export functionality only -->
+<script src="~/Scripts/dataTables.buttons.min.js"></script>
+<script src="~/Scripts/buttons.flash.min.js"></script>
+<script src="~/Scripts/jszip.min.js"></script>
+<script src="~/Scripts/pdfmake.min.js"></script>
+<script src="~/Scripts/vfs_fonts.js"></script>
+<script src="~/Scripts/buttons.html5.min.js"></script>
+<script src="~/Scripts/buttons.print.min.js"></script>
+<!-- end - This is for export functionality only -->
+<script>
+            var table = $('#example').DataTable({
+                "columnDefs": [{
+                    "visible": false,
+                    "targets": 2
+                }],
+                "order": [
+                    [2, 'asc']
+                ],
+                "displayLength": 25,
+                "drawCallback": function(settings) {
+                    var api = this.api();
+                    var rows = api.rows({
+                        page: 'current'
+                    }).nodes();
+                    var last = null;
+                    api.column(2, {
+                        page: 'current'
+                    }).data().each(function(group, i) {
+                        if (last !== group) {
+                            $(rows).eq(i).before('<tr class="group"><td colspan="5">' + group + '</td></tr>');
+                            last = group;
+                        }
+                    });
+                }
+            });
+            // Order by the grouping
+            $('#example tbody').on('click', 'tr.group', function() {
+                var currentOrder = table.order()[0];
+                if (currentOrder[0] === 2 && currentOrder[1] === 'asc') {
+                    table.order([2, 'desc']).draw();
+                } else {
+                    table.order([2, 'asc']).draw();
+                }
+            });
+    $('#example23').DataTable({
+        dom: 'Bfrtip',
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print'
+        ]
+    });
+</script>
+<!-- ============================================================== -->
+<!-- Style switcher -->
+<!-- ============================================================== -->
+<script src="~/Content/assets/plugins/styleswitcher/jQuery.style.switcher.js"></script>
