@@ -9,8 +9,8 @@
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <img class="user-avatar rounded-circle" src="~/Content/assets/images/admin.jpg" alt="User Avatar">
             </a>
-            <div class="user-menu dropdown-menu">
-                <a class="nav-link" href="@Url.Action("Logout","Admin")"><i class="fa fa-power -off"></i>Logout</a>
+            <div class="user-menu dropdown-menu" style="background-color:#808080; color:#000000">
+                @Html.Partial("_PartialLoginLogoutAdmin")
             </div>
         </div>
     </div>

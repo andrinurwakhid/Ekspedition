@@ -1,0 +1,14 @@
+﻿@using Microsoft.AspNet.Identity
+@if (Request.IsAuthenticated)
+{
+    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    {
+        <a class="nav-link" href="@Url.Action("Logout","Admin")"><i class="fa fa-sign-out"></i>&nbsp; Logout</a>
+    }
+}
+else
+{
+    <a class="nav-link" href="@Url.Action("Login","Admin")" style="text-justify:distribute-all-lines"><i class="fa fa-sign-in"></i><b>&nbsp; Login</b></a>
+    <hr style=" border:0;border-top: 4px double black;margin-top:2px;margin-bottom:2px" />
+    <a class="nav-link" href="@Url.Action("Register","Admin")"><i class="fa fa-edit"></i><b>&nbsp; Register</b></a>
+}

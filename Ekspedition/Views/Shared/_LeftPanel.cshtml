@@ -1,18 +1,18 @@
-﻿<nav class="navbar navbar-expand-sm navbar-default"   style="background-color : #404040">
+﻿<nav class="navbar navbar-expand-sm navbar-default"   style="background-color : #0d0d0d">
     <div class="navbar-header">
         <a class="navbar-brand" href="./"><img src="~/Content/assets/images/icon/logoku.png" alt="Logo"></a>
-        <a class="navbar-brand hidden" href="./"><b>N</b></a>
+        <a class="navbar-brand hidden" href="./"><b style="color:#009900;font-family:'Lucida Calligraphy';font-size:medium">N</b></a>
     </div>
     <div id="main-menu" class="main-menu collapse navbar-collapse">
         <ul class="nav navbar-nav">
             <li class="active" id="lidashboard">
-                <a href="@Url.Action("Index","Home")"> <i class="menu-icon fa fa-dashboard"></i>Dashboard</a>
+                <a href="@Url.Action("Index","DashboardAdmin")"> <i class="menu-icon fa fa-dashboard"></i>Dashboard</a>
             </li>
             <li class="menu-item-has-children dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"> <i class="menu-icon fa fa-archive"></i>Shipping</a>
                 <ul class="sub-menu children dropdown-menu" style="background-color: #595959; border-bottom-right-radius:15px; border-bottom-left-radius:15px">
                     <li><i class="fa fa-truck"></i><a href="@Url.Action("Index","Shippings")">Shipping</a></li>
-                    <li><i class="fa fa-map-marker"></i><a href="@Url.Action("Index","HistoryShippings")">Tracking</a></li>
+                    <li><i class="fa fa-map-marker"></i><a href="@Url.Action("Index","HistoryShippings")"  alt="Logo">Tracking</a></li>
                 </ul>
             </li>
             <li class="menu-item-has-children dropdown">
