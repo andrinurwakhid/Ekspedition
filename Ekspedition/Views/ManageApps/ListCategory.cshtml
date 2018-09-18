@@ -16,8 +16,31 @@
                 <h4 class="card-title">Category</h4>
                 <h6 class="card-subtitle">Manage Category</h6>
                 <p style="text-align:right">
-                    <a class="btn btn-outline-success" style="border-radius: 13px;" href="@Url.Action("Create", "Categories")">Create New</a>
+                    @*<a class="btn btn-outline-success" style="border-radius: 13px;" href="@Url.Action("Create", "Categories")">Create New</a>*@
+                    <a class="btn btn-outline-success" data-toggle="modal" data-target="#responsive-modal1" style="border-radius: 13px;">Create New</a>
                 </p>
+                <div id="responsive-modal1" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title">Add Category </h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> ×</button>
+                            </div>
+                            <div class="modal-body">
+                                <form>
+                                    <div class="form-group">
+                                        <label for="recipient-name" class="control-label">Category Name</label>
+                                        <input type="text" class="form-control" id="recipient-name">
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-danger waves-effect waves-light">Save changes</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="table-responsive m-t-5">
                     <table id="example1" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0">
                         <thead>
@@ -50,10 +73,32 @@
                 <h4 class="card-title">Packages</h4>
                 <h6 class="card-subtitle">Manage Package</h6>
                 <p style="text-align:right">
-                    <a class="btn btn-outline-success" style="border-radius: 13px;" href="@Url.Action("Create", "Package")">Create New</a>
+                    <a class="btn btn-outline-success" data-toggle="modal" data-target="#responsive-modal2" style="border-radius: 13px;">Create New</a>
                 </p>
+                <div id="responsive-modal2" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title">Add Package </h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> ×</button>
+                            </div>
+                            <div class="modal-body">
+                                <form>
+                                    <div class="form-group">
+                                        <label for="recipient-name" class="control-label">Package Name</label>
+                                        <input type="text" class="form-control" id="recipient-name">
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-danger waves-effect waves-light">Save changes</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="table-responsive m-t-5">
-                    <table id="example3" class="table display table-bordered table-striped">
+                    <table id="example2" class="table display table-bordered table-striped">
                         <thead>
                             <tr>
                                 <th>Id</th>
@@ -84,10 +129,36 @@
                 <h4 class="card-title">Branchs</h4>
                 <h6 class="card-subtitle">Manage Branch</h6>
                 <p style="text-align:right">
-                    <a class="btn btn-outline-success" style="border-radius: 13px;" href="@Url.Action("Create", "Package")">Create New</a>
+                    <a class="btn btn-outline-success" data-toggle="modal" data-target="#responsive-modal3" style="border-radius: 13px;">Create New</a>
                 </p>
+                <div id="responsive-modal3" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title">Add Branch </h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> ×</button>
+                            </div>
+                            <div class="modal-body">
+                                <form>
+                                    <div class="form-group">
+                                        <label for="recipient-name" class="control-label">Branch Name</label>
+                                        <input type="text" class="form-control" id="recipient-name">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="message-text" class="control-label">Province</label>
+                                        <textarea class="form-control" id="message-text"></textarea>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-danger waves-effect waves-light">Save changes</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="table-responsive m-t-5">
-                    <table id="example4" class="table display table-bordered table-striped">
+                    <table id="example3" class="table display table-bordered table-striped">
                         <thead>
                             <tr>
                                 <th>Id</th>
@@ -118,10 +189,36 @@
                 <h4 class="card-title">Warehouses</h4>
                 <h6 class="card-subtitle">Manage Warehouse</h6>
                 <p style="text-align:right">
-                    <a class="btn btn-outline-success" style="border-radius: 13px;" href="@Url.Action("Create", "Package")">Create New</a>
+                    <a class="btn btn-outline-success" data-toggle="modal" data-target="#responsive-modal4" style="border-radius: 13px;">Create New</a>
                 </p>
+                <div id="responsive-modal4" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title">Add Warehouse </h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> ×</button>
+                            </div>
+                            <div class="modal-body">
+                                <form>
+                                    <div class="form-group">
+                                        <label for="recipient-name" class="control-label">Warehouse Name</label>
+                                        <input type="text" class="form-control" id="recipient-name">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="message-text" class="control-label">Branch Name</label>
+                                        <textarea class="form-control" id="message-text"></textarea>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-danger waves-effect waves-light">Save changes</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="table-responsive m-t-5">
-                    <table id="example5" class="table display table-bordered table-striped">
+                    <table id="example4" class="table display table-bordered table-striped">
                         <thead>
                             <tr>
                                 <th>Id</th>
@@ -152,10 +249,32 @@
                 <h4 class="card-title">Status Shippings</h4>
                 <h6 class="card-subtitle">Manage Status</h6>
                 <p style="text-align:right">
-                    <a class="btn btn-outline-success" style="border-radius: 13px;" href="@Url.Action("Create", "Package")">Create New</a>
+                    <a class="btn btn-outline-success" data-toggle="modal" data-target="#responsive-modal5" style="border-radius: 13px;">Create New</a>
                 </p>
+                <div id="responsive-modal5" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title">Add Status </h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> ×</button>
+                            </div>
+                            <div class="modal-body">
+                                <form>
+                                    <div class="form-group">
+                                        <label for="recipient-name" class="control-label">Status Name</label>
+                                        <input type="text" class="form-control" id="recipient-name">
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-danger waves-effect waves-light">Save changes</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="table-responsive m-t-5">
-                    <table id="example6" class="table display table-bordered table-striped">
+                    <table id="example5" class="table display table-bordered table-striped">
                         <thead>
                             <tr>
                                 <th>Id</th>
@@ -214,7 +333,6 @@
             $('#example3').DataTable();
             $('#example4').DataTable();
             $('#example5').DataTable();
-            $('#example6').DataTable();
             var table = $('#example').DataTable({
                 "columnDefs": [{
                     "visible": false,
