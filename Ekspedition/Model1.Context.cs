@@ -35,7 +35,6 @@ namespace Ekspedition
         public virtual DbSet<Regency> Regencies { get; set; }
         public virtual DbSet<Shipping> Shippings { get; set; }
         public virtual DbSet<StatusShipping> StatusShippings { get; set; }
-        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<Village> Villages { get; set; }
         public virtual DbSet<Warehouse> Warehouses { get; set; }
     }

@@ -30,7 +30,7 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="String" MaxLength="7" FixedLength="true" Unicode="true" Nullable="false" />
-    <Property Name="Regency_Id" Type="String" MaxLength="4" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="Regencys_Id" Type="String" MaxLength="4" FixedLength="true" Unicode="true" Nullable="false" />
     <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
     <NavigationProperty Name="Regency" Relationship="Self.FK_DISTRICTS_REGENCIES" FromRole="Districts" ToRole="Regencies" />
     <NavigationProperty Name="Villages" Relationship="Self.FK_VILLAGES_VILLAGES" FromRole="Districts" ToRole="Villages" />
@@ -40,8 +40,9 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="Position" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Position" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="Username" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="Password" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="Branch_Id" Type="Int32" />
@@ -80,7 +81,7 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="String" MaxLength="4" FixedLength="true" Unicode="true" Nullable="false" />
-    <Property Name="Province_Id" Type="String" MaxLength="7" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="Provinces_Id" Type="String" MaxLength="7" FixedLength="true" Unicode="true" Nullable="false" />
     <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
     <NavigationProperty Name="Districts" Relationship="Self.FK_DISTRICTS_REGENCIES" FromRole="Regencies" ToRole="Districts" />
     <NavigationProperty Name="Province" Relationship="Self.FK_REGENCIES_PROVINCES" FromRole="Regencies" ToRole="Provinces" />
@@ -90,9 +91,8 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Date" Type="DateTime" Precision="3" />
     <Property Name="Quantity" Type="Int32" Nullable="false" />
-    <Property Name="Assurances" Type="Int32" />
+    <Property Name="Assurances" Type="Boolean" />
     <Property Name="Weight" Type="Int32" Nullable="false" />
     <Property Name="Category_Id" Type="Int32" Nullable="false" />
     <Property Name="SenderName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
@@ -111,7 +111,7 @@
     <Property Name="ReceiverAddress" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="Price" Type="Int32" Nullable="false" />
     <Property Name="TotalPrice" Type="Int32" />
-    <Property Name="StatusShippings_Id" Type="Int32" Nullable="false" />
+    <Property Name="StatusShipping_Id" Type="Int32" Nullable="false" />
     <Property Name="Employee_Id" Type="Int32" Nullable="false" />
     <Property Name="Package_Id" Type="Int32" Nullable="false" />
     <Property Name="Destination_Branch_Id" Type="Int32" Nullable="false" />
@@ -131,22 +131,12 @@
     <Property Name="Name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="Shippings" Relationship="Self.FK_SHIPPINGS_STATUS_SHIPPING" FromRole="StatusShippings" ToRole="Shippings" />
   </EntityType>
-  <EntityType Name="sysdiagram">
-    <Key>
-      <PropertyRef Name="diagram_id" />
-    </Key>
-    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="principal_id" Type="Int32" Nullable="false" />
-    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="version" Type="Int32" />
-    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
-  </EntityType>
   <EntityType Name="Village">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
-    <Property Name="District_Id" Type="String" MaxLength="7" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="Districts_Id" Type="String" MaxLength="7" FixedLength="true" Unicode="true" Nullable="false" />
     <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
     <NavigationProperty Name="Branchs" Relationship="Self.FK_BRANCHS_VILLAGES" FromRole="Villages" ToRole="Branchs" />
     <NavigationProperty Name="District" Relationship="Self.FK_VILLAGES_VILLAGES" FromRole="Villages" ToRole="Districts" />
@@ -224,7 +214,7 @@
         <PropertyRef Name="Id" />
       </Principal>
       <Dependent Role="Districts">
-        <PropertyRef Name="Regency_Id" />
+        <PropertyRef Name="Regencys_Id" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -236,7 +226,7 @@
         <PropertyRef Name="Id" />
       </Principal>
       <Dependent Role="Villages">
-        <PropertyRef Name="District_Id" />
+        <PropertyRef Name="Districts_Id" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -284,7 +274,7 @@
         <PropertyRef Name="Id" />
       </Principal>
       <Dependent Role="Regencies">
-        <PropertyRef Name="Province_Id" />
+        <PropertyRef Name="Provinces_Id" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -296,7 +286,7 @@
         <PropertyRef Name="Id" />
       </Principal>
       <Dependent Role="Shippings">
-        <PropertyRef Name="StatusShippings_Id" />
+        <PropertyRef Name="StatusShipping_Id" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -347,7 +337,6 @@
     <EntitySet Name="Regencies" EntityType="Self.Regency" />
     <EntitySet Name="Shippings" EntityType="Self.Shipping" />
     <EntitySet Name="StatusShippings" EntityType="Self.StatusShipping" />
-    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
     <EntitySet Name="Villages" EntityType="Self.Village" />
     <EntitySet Name="Warehouses" EntityType="Self.Warehouse" />
     <AssociationSet Name="FK_BRANCHS_VILLAGES" Association="Self.FK_BRANCHS_VILLAGES">

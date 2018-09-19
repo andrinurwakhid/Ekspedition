@@ -38,7 +38,7 @@
                                         @Html.DisplayFor(modelItem => item.Shipping_Id)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.Shipping.Employee.Name)
+                                        @Html.DisplayFor(modelItem => item.Shipping.Employee.FirstName) + @Html.DisplayFor(modelItem => item.Shipping.Employee.LastName)
                                     </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.Shipping.StatusShipping.Name)

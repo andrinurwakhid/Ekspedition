@@ -241,9 +241,7 @@
     <Compile Include="StatusShipping.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="sysdiagram.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
+    <Compile Include="ViewModel\Admin\DashboardAdmin.cs" />
     <Compile Include="Village.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -253,6 +251,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\assets\images\icon\logoku.png" />
+    <Content Include="Content\assets\images\users\logo-user.png" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -4105,6 +4104,11 @@
     <Content Include="Content\assets\scss\style.scss" />
     <Content Include="Content\assets\scss\variable.scss" />
     <Content Include="Content\assets\scss\widgets.scss" />
+    <Content Include="fonts\FontAwesome.otf" />
+    <Content Include="fonts\fontawesome-webfont.woff2" />
+    <Content Include="fonts\fontawesome-webfont.woff" />
+    <Content Include="fonts\fontawesome-webfont.ttf" />
+    <Content Include="fonts\fontawesome-webfont.eot" />
     <EntityDeploy Include="Model1.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Model1.Designer.cs</LastGenOutput>
@@ -4112,11 +4116,6 @@
     <Content Include="Model1.edmx.diagram">
       <DependentUpon>Model1.edmx</DependentUpon>
     </Content>
-    <Content Include="fonts\FontAwesome.otf" />
-    <Content Include="fonts\fontawesome-webfont.woff2" />
-    <Content Include="fonts\fontawesome-webfont.woff" />
-    <Content Include="fonts\fontawesome-webfont.ttf" />
-    <Content Include="fonts\fontawesome-webfont.eot" />
     <None Include="Scripts\jquery-2.2.4.intellisense.js" />
     <Content Include="Scripts\jquery-2.2.4.js" />
     <Content Include="Scripts\jquery-2.2.4.min.js" />
@@ -4255,11 +4254,13 @@
     <Content Include="Views\ManageApps\ListCategory.cshtml" />
     <Content Include="Views\ManageApps\ListStatusShipping.cshtml" />
     <Content Include="Views\ManageApps\_Index.cshtml" />
+    <Content Include="Views\Shared\_PartialLoginLogoutAdmin.cshtml" />
+    <Content Include="Views\DashboardAdmin\ListHistoryShipping.cshtml" />
+    <Content Include="Views\DashboardAdmin\Indexsda.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Scripts\datatable\" />
-    <Folder Include="ViewModel\" />
     <Folder Include="Views\User\" />
   </ItemGroup>
   <ItemGroup>

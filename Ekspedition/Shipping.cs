@@ -21,9 +21,8 @@ namespace Ekspedition
         }
     
         public int Id { get; set; }
-        public Nullable<System.DateTime> Date { get; set; }
         public int Quantity { get; set; }
-        public Nullable<int> Assurances { get; set; }
+        public Nullable<bool> Assurances { get; set; }
         public int Weight { get; set; }
         public int Category_Id { get; set; }
         public string SenderName { get; set; }
@@ -42,7 +41,7 @@ namespace Ekspedition
         public string ReceiverAddress { get; set; }
         public int Price { get; set; }
         public Nullable<int> TotalPrice { get; set; }
-        public int StatusShippings_Id { get; set; }
+        public int StatusShipping_Id { get; set; }
         public int Employee_Id { get; set; }
         public int Package_Id { get; set; }
         public int Destination_Branch_Id { get; set; }

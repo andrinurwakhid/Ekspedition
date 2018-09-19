@@ -1,7 +1,10 @@
-﻿
+﻿@model Ekspedition.ViewModel.DashboardAdmin
+
 @{
     ViewBag.Title = "Index";
 }
+
+
 <div><p></p></div>
 <a style="color:black;font-family:'Lucida Calligraphy'; font-size:large">Welcome</a>
 <a style="color:#009900;font-family:'Lucida Calligraphy'; font-size:large">Andri Nur Wakhid</a>
@@ -47,19 +50,18 @@
         </div>
     </div>
 </div>
-
-<div class="row">
+<div class="row">    
     <!-- Column -->
     <div class="col-lg-4 col-md-6">
         <div class="card">
             <div class="card-body" style="height: 152px">
                 <h4 class="card-title"><i class="fa fa-truck"></i> Daily Packages</h4>
                 <div class="text-right">
-                    <h1 class="font-light m-b-0" style="font-size: 25px"><i class="ti-arrow-up text-success"></i> <b>10</b> Package Delivered</h1>
+                    <h1 class="font-light m-b-0" style="font-size: 25px"><i class="ti-arrow-up text-success"></i> <b>@Model.HistID</b> Package Delivered</h1>
                 </div>
-                <span class="text-success">10</span>
+                <span class="text-success" id="andri">7</span>
                 <div class="progress">
-                    <div class="progress-bar bg-success" role="progressbar" style="width: 10%; height: 6px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                    <div class="progress-bar bg-success" role="progressbar" style="width: 2%; height: 6px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
             </div>
         </div>
@@ -67,11 +69,11 @@
             <div class="card-body" style="height: 152px">
                 <h4 class="card-title"><i class="fa fa-truck"></i> Weekly Packages</h4>
                 <div class="text-right">
-                    <h2 class="font-light m-b-0" style="font-size: 25px"><i class="ti-arrow-up text-info"></i> <b>24</b> Package Delivered</h2>
+                    <h2 class="font-light m-b-0" style="font-size: 25px"><i class="ti-arrow-up text-info"></i> <b>7</b> Package Delivered</h2>
                 </div>
-                <span class="text-info">24</span>
+                <span class="text-info">7</span>
                 <div class="progress">
-                    <div class="progress-bar bg-info" role="progressbar" style="width: 24%; height: 6px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                    <div class="progress-bar bg-info" role="progressbar" style="width: 6%; height: 6px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
             </div>
         </div>
@@ -79,18 +81,16 @@
             <div class="card-body" style="height: 152px">
                 <h4 class="card-title"><i class="fa fa-truck"></i> Monthly Packages</h4>
                 <div class="text-right">
-                    <h2 class="font-light m-b-0" style="font-size: 25px"><i class="ti-arrow-up text-purple"></i> <b>40</b> Package Delivered</h2>
+                    <h2 class="font-light m-b-0" style="font-size: 25px"><i class="ti-arrow-up text-purple"></i> <b>7</b> Package Delivered</h2>
                 </div>
-                <span class="text-purple">40</span>
+                <span class="text-purple">7</span>
                 <div class="progress">
-                    <div class="progress-bar bg-purple" role="progressbar" style="width: 40%; height: 6px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                    <div class="progress-bar bg-purple" role="progressbar" style="width: 7%; height: 6px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
             </div>
         </div>
     </div>
     <!-- Column -->
-
-
     <div class="col-lg-4 col-md-6">
         <div class="card" style="height: 509px">
             <div class="card-body">
@@ -102,23 +102,8 @@
                      <div class="card-body">
                          <div id="myCarousel" class="carousel slide" data-ride="carousel">
                              <div class="carousel-inner">
+
                                  <div class="carousel-item active flex-column">
-                                     <div class="text-white">
-                                         <b>[Shipping ID]</b> deliver to <b>[Branch Name]</b>
-                                     </div>
-                                     <div class="text-white m-t-20">
-                                         <i>status : <b>Packing</b></i>
-                                     </div>
-                                 </div>
-                                 <div class="carousel-item flex-column">
-                                     <div class="text-white">
-                                         <b>[Shipping ID]</b> deliver to <b>[Branch Name]</b>
-                                     </div>
-                                     <div class="text-white m-t-20">
-                                         <i>status : <b>On The Way</b></i>
-                                     </div>
-                                 </div>
-                                 <div class="carousel-item flex-column">
                                      <div class="text-white">
                                          <b>[Shipping ID]</b> deliver to <b>[Branch Name]</b>
                                      </div>
@@ -126,6 +111,18 @@
                                          <i>status : <b>Delivered</b></i>
                                      </div>
                                  </div>
+
+                                 @foreach (var item in Model)
+                                 {
+                                    <div class="carousel-item flex-column">
+                                        <div class="text-white">
+                                            <b>Shipping ID [@Html.DisplayFor(modelItem => item.Shipping_Id)]</b> deliver to <b>@Html.DisplayFor(modelItem => item.Shipping.Employee.Branch.Name)</b>
+                                        </div>
+                                        <div class="text-white m-t-20">
+                                            <i>status : <b>@Html.DisplayFor(modelItem => item.Shipping.StatusShipping.Name)</b></i>
+                                        </div>
+                                    </div>
+                                 }
                              </div>
                          </div>
                      </div>
@@ -184,7 +181,7 @@
                 </p>
                 <hr style="height:15px; border:0;border-top: 4px double #808080" />
                 <p style="text-align:center">
-                    <img src="~/Content/assets/images/users/1.jpg" alt="user" class="img-circle" width="100">
+                    <img src="~/Content/assets/images/users/logo-user.png" alt="user" class="img-circle" width="100">
                 </p>
                 <div>
                     <br />

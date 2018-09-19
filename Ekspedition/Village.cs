@@ -24,7 +24,7 @@ namespace Ekspedition
         }
     
         public string Id { get; set; }
-        public string District_Id { get; set; }
+        public string Districts_Id { get; set; }
         public string Name { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

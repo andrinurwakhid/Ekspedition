@@ -21,7 +21,7 @@ namespace Ekspedition
         }
     
         public string Id { get; set; }
-        public string Regency_Id { get; set; }
+        public string Regencys_Id { get; set; }
         public string Name { get; set; }
     
         public virtual Regency Regency { get; set; }

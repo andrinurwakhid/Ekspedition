@@ -58,7 +58,7 @@ namespace Ekspedition.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.Province_Id = new SelectList(db.Provinces, "Id", "Name", regency.Province_Id);
+            ViewBag.Province_Id = new SelectList(db.Provinces, "Id", "Name", regency.Provinces_Id);
             return View(regency);
         }
 
@@ -74,7 +74,7 @@ namespace Ekspedition.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.Province_Id = new SelectList(db.Provinces, "Id", "Name", regency.Province_Id);
+            ViewBag.Province_Id = new SelectList(db.Provinces, "Id", "Name", regency.Provinces_Id);
             return View(regency);
         }
 
@@ -91,7 +91,7 @@ namespace Ekspedition.Controllers
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            ViewBag.Province_Id = new SelectList(db.Provinces, "Id", "Name", regency.Province_Id);
+            ViewBag.Province_Id = new SelectList(db.Provinces, "Id", "Name", regency.Provinces_Id);
             return View(regency);
         }
 

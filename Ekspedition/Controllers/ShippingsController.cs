@@ -66,7 +66,7 @@ namespace Ekspedition.Controllers
             ViewBag.Category_Id = new SelectList(db.Categories, "Id", "Name", shipping.Category_Id);
             ViewBag.Employee_Id = new SelectList(db.Employees, "Id", "Name", shipping.Employee_Id);
             ViewBag.Package_Id = new SelectList(db.Packages, "Id", "Name", shipping.Package_Id);
-            ViewBag.StatusShippings_Id = new SelectList(db.StatusShippings, "Id", "Name", shipping.StatusShippings_Id);
+            ViewBag.StatusShippings_Id = new SelectList(db.StatusShippings, "Id", "Name", shipping.StatusShipping_Id);
             ViewBag.SenderVillage_Id = new SelectList(db.Villages, "Id", "District_Id", shipping.SenderVillage_Id);
             ViewBag.ReceiverVillage_Id = new SelectList(db.Villages, "Id", "District_Id", shipping.ReceiverVillage_Id);
             return View(shipping);
@@ -87,7 +87,7 @@ namespace Ekspedition.Controllers
             ViewBag.Category_Id = new SelectList(db.Categories, "Id", "Name", shipping.Category_Id);
             ViewBag.Employee_Id = new SelectList(db.Employees, "Id", "Name", shipping.Employee_Id);
             ViewBag.Package_Id = new SelectList(db.Packages, "Id", "Name", shipping.Package_Id);
-            ViewBag.StatusShippings_Id = new SelectList(db.StatusShippings, "Id", "Name", shipping.StatusShippings_Id);
+            ViewBag.StatusShippings_Id = new SelectList(db.StatusShippings, "Id", "Name", shipping.StatusShipping_Id);
             ViewBag.SenderVillage_Id = new SelectList(db.Villages, "Id", "District_Id", shipping.SenderVillage_Id);
             ViewBag.ReceiverVillage_Id = new SelectList(db.Villages, "Id", "District_Id", shipping.ReceiverVillage_Id);
             return View(shipping);
@@ -109,7 +109,7 @@ namespace Ekspedition.Controllers
             ViewBag.Category_Id = new SelectList(db.Categories, "Id", "Name", shipping.Category_Id);
             ViewBag.Employee_Id = new SelectList(db.Employees, "Id", "Name", shipping.Employee_Id);
             ViewBag.Package_Id = new SelectList(db.Packages, "Id", "Name", shipping.Package_Id);
-            ViewBag.StatusShippings_Id = new SelectList(db.StatusShippings, "Id", "Name", shipping.StatusShippings_Id);
+            ViewBag.StatusShippings_Id = new SelectList(db.StatusShippings, "Id", "Name", shipping.StatusShipping_Id);
             ViewBag.SenderVillage_Id = new SelectList(db.Villages, "Id", "District_Id", shipping.SenderVillage_Id);
             ViewBag.ReceiverVillage_Id = new SelectList(db.Villages, "Id", "District_Id", shipping.ReceiverVillage_Id);
             return View(shipping);
