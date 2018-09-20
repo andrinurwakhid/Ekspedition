@@ -66,3 +66,4 @@ D:\PT Mitra Integrasi Informatika\Bootcamp\Materi\15 Web Ekspedisi (DB First)\Ek
 D:\PT Mitra Integrasi Informatika\Bootcamp\Materi\15 Web Ekspedisi (DB First)\Ekspedition\Ekspedition\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
 D:\PT Mitra Integrasi Informatika\Bootcamp\Materi\15 Web Ekspedisi (DB First)\Ekspedition\Ekspedition\obj\Debug\Ekspedition.dll
 D:\PT Mitra Integrasi Informatika\Bootcamp\Materi\15 Web Ekspedisi (DB First)\Ekspedition\Ekspedition\obj\Debug\Ekspedition.pdb
+D:\PT Mitra Integrasi Informatika\Bootcamp\Materi\15 Web Ekspedisi (DB First)\Ekspedition\Ekspedition\obj\Debug\Ekspedition.csprojResolveAssemblyReference.cache

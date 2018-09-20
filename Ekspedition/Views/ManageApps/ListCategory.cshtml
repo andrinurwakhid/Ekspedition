@@ -1,7 +1,55 @@
-﻿@model IEnumerable<Ekspedition.Category>
+﻿@model Ekspedition.ViewModel.ManageApps
+
 @{
     ViewBag.Title = "Index";
 }
+<add namespace="System.Linq" />
+
+@{
+    ExpeditionEntities db = new ExpeditionEntities();
+
+    var data =  from c in db.Categories
+                select new { c };
+
+    var CList = data.ToList();
+}
+<div id="editcategory" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Edit Profile </h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> ×</button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <input hidden id="eid" />
+                    <div class="form-group col-md-12">
+                        <label for="recipient-name" class="control-label"><b>First Name</b></label>
+                        <input type="text" class="form-control" id="efirstname" />
+                        <span class="error">Error !</span>
+                    </div>
+                    <div class="form-group col-md-12">
+                        <label for="recipient-name" class="control-label"><b>Last Name</b></label>
+                        <input type="text" class="form-control" id="elastname" />
+                        <span class="error">Error !</span>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="recipient-name" class="control-label"><b>Position</b></label>
+                        <input type="text" class="form-control" id="eposition" />
+                        <span class="error">Error !</span>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button id="closeedit" type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
+                <button id="updateadmin" type="button" class="btn btn-danger waves-effect waves-light">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
 
 
 <h2><b>Manage Apps</b></h2> <br />
@@ -46,21 +94,21 @@
                     <table id="example1" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0">
                         <thead>
                             <tr>
-                                <th>@Html.DisplayNameFor(model => model.Id)</th>
-                                <th>@Html.DisplayNameFor(model => model.Name)</th>
+                                <th>ID</th>
+                                <th>Name</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach (var item in Model)
+                            @foreach (var item in CList)
                             {
                                 <tr>
-                                    <td>@Html.DisplayFor(modelItem => item.Id)</td>
-                                    <td>@Html.DisplayFor(modelItem => item.Name)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.c.Id)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.c.Name)</td>
                                     <td>
-                                        <a class="btn btn-warning" style="border-radius: 13px;" href="@Url.Action("Edit", "Categories", new { id = item.Id })">Edit</a>
-                                        <a class="btn btn-info" style="border-radius: 13px;" href="@Url.Action("Details", "Categories", new { id = item.Id })">Details</a>
-                                        <a class="btn btn-danger" style="border-radius: 13px;" href="@Url.Action("Delete", "Categories", new { id = item.Id })">Delete</a>
+                                        <a class="btn btn-warning" style="border-radius: 13px;" data-toggle="modal" data-target="#editcategory" href="#">Edit</a>
+                                        <a class="btn btn-info" style="border-radius: 13px;" data-toggle="modal" data-target="#detailcategory" href="#">Details</a>
+                                        <a class="btn btn-danger" style="border-radius: 13px;" data-toggle="modal" data-target="#deletecategory" href="#">Delete</a>
                                     </td>
                                 </tr>
                             }
@@ -69,7 +117,7 @@
                 </div>
             </div>
         </div>
-        <div class="card" id="listpackage">
+        @*<div class="card" id="listpackage">
             <div class="card-body">
                 <h4 class="card-title">Packages</h4>
                 <h6 class="card-subtitle">Manage Package</h6>
@@ -108,7 +156,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach (var item in Model)
+                            @foreach (var item in Model.VMPackage)
                             {
                                 <tr>
                                     <td>@Html.DisplayFor(modelItem => item.Id)</td>
@@ -168,7 +216,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach (var item in Model)
+                            @foreach (var item in Model.VMBranch)
                             {
                                 <tr>
                                     <td>@Html.DisplayFor(modelItem => item.Id)</td>
@@ -228,7 +276,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach (var item in Model)
+                            @foreach (var item in Model.VMWarehouse)
                             {
                                 <tr>
                                     <td>@Html.DisplayFor(modelItem => item.Id)</td>
@@ -284,7 +332,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach (var item in Model)
+                            @foreach (var item in Model.VMStatusShipping)
                             {
                                 <tr>
                                     <td>@Html.DisplayFor(modelItem => item.Id)</td>
@@ -300,7 +348,7 @@
                     </table>
                 </div>
              </div>
-        </div>
+        </div>*@
     </div>
 </div>
 <script src="~/Content/assets/plugins/jquery/jquery.min.js"></script>

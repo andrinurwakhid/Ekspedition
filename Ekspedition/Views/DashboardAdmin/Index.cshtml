@@ -4,12 +4,31 @@
     ViewBag.Title = "Index";
 }
 
+<add namespace="System.Linq" />
+@{
+    ExpeditionEntities db = new ExpeditionEntities();
+
+    var query2 = from hs in db.HistoryShippings
+                 join s in db.Shippings
+                 on hs.Shipping_Id equals s.Id
+
+                 join ss in db.StatusShippings
+                 on hs.StatusShipping_Id equals ss.Id
+
+                 join e in db.Employees
+                 on hs.Employee_Id equals e.Id
+                 
+                 select new { hs, s, ss, e};
+
+    var query2list = query2.ToList();
+}
 
 <div><p></p></div>
 <a style="color:black;font-family:'Lucida Calligraphy'; font-size:large">Welcome</a>
-<a style="color:#009900;font-family:'Lucida Calligraphy'; font-size:large">Andri Nur Wakhid</a>
+<a style="color:#009900;font-family:'Lucida Calligraphy'; font-size:large">@ViewBag.EFName&nbsp;@ViewBag.ELName</a>
 <br />
 <div><p></p></div>
+
 
 
 <div id="editprofile" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
@@ -21,31 +40,56 @@
             </div>
             <div class="modal-body">
                 <form>
+                    <input hidden id="eid" value="@ViewBag.EId"/>
                     <div class="form-group col-md-12">
-                        <label for="recipient-name" class="control-label"><b>Full Name</b></label>
-                        <input type="text" class="form-control" id="recipient-name">
+                        <label for="recipient-name" class="control-label"><b>First Name</b></label>
+                        <input type="text" class="form-control" id="efirstname" value="@ViewBag.EFName">
+                        <span class="error">Error !</span>
+                    </div>
+                    <div class="form-group col-md-12">
+                        <label for="recipient-name" class="control-label"><b>Last Name</b></label>
+                        <input type="text" class="form-control" id="elastname" value="@ViewBag.ELName">
+                        <span class="error">Error !</span>
                     </div>
                     <div class="form-group col-md-6">
                         <label for="recipient-name" class="control-label"><b>Position</b></label>
-                        <input type="text" class="form-control" id="recipient-name">
+                        <input type="text" class="form-control" id="eposition" value="@ViewBag.EPosition">
+                        <span class="error">Error !</span>
                     </div>
                     <div class="form-group col-md-6">
                         <label for="recipient-name" class="control-label"><b>Branch</b></label>
-                        <input type="text" class="form-control" id="recipient-name">
+
+                        <select class="form-control" id="ebranch" name="ebranch">
+                            @foreach (var get in (IEnumerable<SelectListItem>)ViewBag.EBranchList)
+                            {
+                                if (get.Selected)
+                                {
+                                    <option value="@get.Value" selected>@get.Text</option>
+                                }
+                                else
+                                {
+                                    <option value="@get.Value">@get.Text</option>
+                                }
+                            }
+                        </select>
+
+                        <span class="error">Error !</span>
                     </div>
                     <div class="form-group col-md-6">
                         <label for="recipient-name" class="control-label"><b>Username</b></label>
-                        <input type="text" class="form-control" id="recipient-name">
+                        <input type="text" class="form-control" id="eusername" value="@ViewBag.EUsername">
+                        <span class="error">Error !</span>
                     </div>
                     <div class="form-group col-md-6">
                         <label for="recipient-name" class="control-label"><b>Password</b></label>
-                        <input type="text" class="form-control" id="recipient-name">
+                        <input type="text" class="form-control" id="epassword" value="@ViewBag.EPassword">
+                        <span class="error">Error !</span>
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-danger waves-effect waves-light">Save changes</button>
+                <button id="closeedit" type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
+                <button id="updateadmin" type="button" class="btn btn-danger waves-effect waves-light">Save changes</button>
             </div>
         </div>
     </div>
@@ -57,11 +101,11 @@
             <div class="card-body" style="height: 152px">
                 <h4 class="card-title"><i class="fa fa-truck"></i> Daily Packages</h4>
                 <div class="text-right">
-                    <h1 class="font-light m-b-0" style="font-size: 25px"><i class="ti-arrow-up text-success"></i> <b>@Model.HistID</b> Package Delivered</h1>
+                    <h1 class="font-light m-b-0" style="font-size: 25px"><i class="ti-arrow-up text-success"></i> <b>@ViewBag.HSCount</b> Package Delivered</h1>
                 </div>
-                <span class="text-success" id="andri">7</span>
+                <span class="text-success" id="andri">@ViewBag.HSCount</span>
                 <div class="progress">
-                    <div class="progress-bar bg-success" role="progressbar" style="width: 2%; height: 6px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                    <div class="progress-bar bg-success" role="progressbar" style="width: @ViewBag.HSCount%; height: 6px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
             </div>
         </div>
@@ -69,11 +113,11 @@
             <div class="card-body" style="height: 152px">
                 <h4 class="card-title"><i class="fa fa-truck"></i> Weekly Packages</h4>
                 <div class="text-right">
-                    <h2 class="font-light m-b-0" style="font-size: 25px"><i class="ti-arrow-up text-info"></i> <b>7</b> Package Delivered</h2>
+                    <h2 class="font-light m-b-0" style="font-size: 25px"><i class="ti-arrow-up text-info"></i> <b>@ViewBag.HSCount</b> Package Delivered</h2>
                 </div>
-                <span class="text-info">7</span>
+                <span class="text-info">@ViewBag.HSCount</span>
                 <div class="progress">
-                    <div class="progress-bar bg-info" role="progressbar" style="width: 6%; height: 6px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                    <div class="progress-bar bg-info" role="progressbar" style="width: @ViewBag.HSCount%; height: 6px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
             </div>
         </div>
@@ -81,11 +125,11 @@
             <div class="card-body" style="height: 152px">
                 <h4 class="card-title"><i class="fa fa-truck"></i> Monthly Packages</h4>
                 <div class="text-right">
-                    <h2 class="font-light m-b-0" style="font-size: 25px"><i class="ti-arrow-up text-purple"></i> <b>7</b> Package Delivered</h2>
+                    <h2 class="font-light m-b-0" style="font-size: 25px"><i class="ti-arrow-up text-purple"></i> <b>@ViewBag.HSCount</b> Package Delivered</h2>
                 </div>
-                <span class="text-purple">7</span>
+                <span class="text-purple">@ViewBag.HSCount</span>
                 <div class="progress">
-                    <div class="progress-bar bg-purple" role="progressbar" style="width: 7%; height: 6px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                    <div class="progress-bar bg-purple" role="progressbar" style="width: @ViewBag.HSCount%; height: 6px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
             </div>
         </div>
@@ -102,24 +146,23 @@
                      <div class="card-body">
                          <div id="myCarousel" class="carousel slide" data-ride="carousel">
                              <div class="carousel-inner">
-
                                  <div class="carousel-item active flex-column">
-                                     <div class="text-white">
-                                         <b>[Shipping ID]</b> deliver to <b>[Branch Name]</b>
+                                     <div>
+                                         <p style="text-align: center;color:whitesmoke;font-family:'Lucida Calligraphy'; font-size:24px; padding-top: 8px">
+                                            <b> FAST Report</b>
+                                         </p>
                                      </div>
-                                     <div class="text-white m-t-20">
-                                         <i>status : <b>Delivered</b></i>
-                                     </div>
+                                     <div class="text-white m-t-20"></div>
                                  </div>
-
-                                 @foreach (var item in Model)
+                                 @foreach (var item in query2list)
                                  {
                                     <div class="carousel-item flex-column">
                                         <div class="text-white">
-                                            <b>Shipping ID [@Html.DisplayFor(modelItem => item.Shipping_Id)]</b> deliver to <b>@Html.DisplayFor(modelItem => item.Shipping.Employee.Branch.Name)</b>
+                                            Shipping ID [<b>@Html.DisplayFor(modelItem => item.hs.StatusShipping_Id)</b>] deliver to <b>@Html.DisplayFor(modelItem => item.e.Branch.Name)</b>
                                         </div>
                                         <div class="text-white m-t-20">
-                                            <i>status : <b>@Html.DisplayFor(modelItem => item.Shipping.StatusShipping.Name)</b></i>
+                                            <a><i>Status : <b>@Html.DisplayFor(modelItem => item.hs.Shipping.StatusShipping.Name)</b></i></a>
+                                            <a><i>By : <b>@Html.DisplayFor(modelItem => item.e.FirstName)&nbsp;@Html.DisplayFor(modelItem => item.e.LastName)</b></i></a>
                                         </div>
                                     </div>
                                  }
@@ -128,40 +171,37 @@
                      </div>
                  </div>
                 <div class="card bg-secondary">
-                    <div class="card-body">
+                    <div class="card-body"  style="padding-bottom:0px">
                         <div id="myCarousel" class="carousel slide" data-ride="carousel">
                             <div class="carousel-inner">
                                 <div class="carousel-item active flex-column">
                                     <div class="text-white">
-                                        <b>3</b> Package
+                                        <p style="text-align: center;color:whitesmoke;font-family:'Lucida Calligraphy'; font-size:24px;">
+                                            <b>Total Data</b>
+                                        </p>
                                     </div>
                                     <div class="text-white">
-                                        <b>2</b> Category
-                                    </div>
-                                    <div class="text-white m-t-20">
-                                        <b>In this Weeks</b>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="card bg-primary">
-                    <div class="card-body">
-                        <div id="myCarousel" class="carousel slide" data-ride="carousel">
-                            <div class="carousel-inner">
-                                <div class="carousel-item active flex-column">
-                                    <div class="text-white">
-                                        <b>5</b> Branch
+                                        <b>@ViewBag.SCount</b> Package
                                     </div>
                                     <div class="text-white">
-                                        <b>3</b> Warehouse
+                                        <b>@ViewBag.CCount</b> Category
                                     </div>
                                     <div class="text-white">
-                                        <b>40</b> Employee
+                                        <b>@ViewBag.BCount</b> Branch
                                     </div>
-                                    <div class="text-white m-t-20">
-                                        In <b>Surakarta</b>
+                                    <div class="text-white">
+                                        <b>@ViewBag.WCount</b> Warehouse
+                                    </div>
+                                    <div class="text-white">
+                                        <b>@ViewBag.SSCount</b> StatusShipping
+                                    </div>
+                                    <div class="text-white">
+                                        <b>@ViewBag.SCount</b> Shipping
+                                    </div>
+                                    <div class="text-white m-t-20" style="padding-top: 22px; padding-bottom:0px">
+                                        <p style="text-align:center">
+                                            <a class="btn btn-warning fa fa-bar-chart" style="border-radius: 13px;" href="@Url.Action("Index","ManageApps")">&nbsp;&nbsp;&nbsp;Details&nbsp;&nbsp;&nbsp;</a>
+                                        </p>
                                     </div>
                                 </div>
                             </div>
@@ -177,7 +217,7 @@
         <div class="card" style="height: 509px">
             <div class="card-body">
                 <p style="text-align:center">
-                    <a><b>Andri</b></a>
+                    <a><b>@ViewBag.EFName</b></a>
                 </p>
                 <hr style="height:15px; border:0;border-top: 4px double #808080" />
                 <p style="text-align:center">
@@ -185,35 +225,45 @@
                 </p>
                 <div>
                     <br />
-                    <a class="font-light"><b>Fullname&nbsp;</b></a>
+                    <a class="font-light"><b>FullName&nbsp;</b></a>
                     <a>&nbsp;&nbsp;:&nbsp;&nbsp;</a>
-                    <a>Andri Nur Wakhid</a>
+                    <a>@ViewBag.EFName&nbsp;@ViewBag.ELName</a>
                     <br />
                     <a class="font-light"><b>Position&nbsp;&nbsp;&nbsp;</b></a>
                     <a>&nbsp;&nbsp;:&nbsp;&nbsp;</a>
-                    <a>Staff</a>
+                    <a>@ViewBag.EPosition</a>
                     <br />
                     <a class="font-light"><b>Branch&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b></a>
                     <a>&nbsp;&nbsp;:&nbsp;&nbsp;</a>
-                    <a>Surakarta</a>
+                    <a>@ViewBag.EBranch</a>
                     <br />
                     <a class="font-light"><b>Username</b></a>
                     <a>&nbsp;&nbsp;:&nbsp;&nbsp;</a>
-                    <a>andriwakhid01@gmail.com</a>
+                    <a>@ViewBag.EUsername</a>
+                    <br />
                     <a class="font-light"><b>Password&nbsp;</b></a>
                     <a>&nbsp;&nbsp;:&nbsp;&nbsp;</a>
-                    <a>********</a>
+                    <a>@ViewBag.EPassword</a>
                 </div>
             </div>
             <div class="card-body">
                 <hr style=" border:0;border-top: 4px double #808080" />
                 <p style="text-align:center">
-                    <a class="btn btn-warning" style="border-radius: 13px;"  data-toggle="modal" data-target="#editprofile" href="#">&nbsp;&nbsp;&nbsp;Edit Profile&nbsp;&nbsp;&nbsp;</a>
+                    <a class="btn btn-warning fa fa-pencil-square" style="border-radius: 13px;"  data-toggle="modal" data-target="#editprofile" href="#">&nbsp;&nbsp;&nbsp;Edit Profile&nbsp;&nbsp;&nbsp;</a>
                 </p>
             </div>
         </div>
     </div>
-
 </div>
-
-
+<link href="~/Content/jquery-ui.css" rel="stylesheet" />
+<script src="~/Scripts/jquery-2.2.4.min.js"></script>
+<script src="~/Scripts/jquery-ui.js"></script>
+<script src="~/Scripts/MyScript.js"></script>
+<style>
+    span.error {
+        display: block;
+        visibility: hidden;
+        color: red;
+        font-size: 90%;
+    }
+</style>
