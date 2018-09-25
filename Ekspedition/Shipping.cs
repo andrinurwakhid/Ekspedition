@@ -45,6 +45,7 @@ namespace Ekspedition
         public int Employee_Id { get; set; }
         public int Package_Id { get; set; }
         public int Destination_Branch_Id { get; set; }
+        public Nullable<System.DateTime> Date { get; set; }
     
         public virtual Category Category { get; set; }
         public virtual Employee Employee { get; set; }

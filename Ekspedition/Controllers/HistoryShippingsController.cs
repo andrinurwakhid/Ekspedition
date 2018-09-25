@@ -18,7 +18,7 @@ namespace Ekspedition.Controllers
         // GET: HistoryShippings
         public async Task<ActionResult> Index()
         {
-            var historyShippings = db.HistoryShippings.Include(h => h.Shipping);
+            var historyShippings = db.HistoryShippings;
             return View(await historyShippings.ToListAsync());
         }
 

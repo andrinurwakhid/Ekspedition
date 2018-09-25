@@ -6,227 +6,425 @@
 
 <h2>Create</h2>
 
+<link href="~/Content/assets/css/style.css" rel="stylesheet">
+<link rel="stylesheet" href="~/Content/assets/scss/style.css">
+<link href="~/Content/assets/css/colors/blue.css" id="theme" rel="stylesheet">
 
 @using (Html.BeginForm()) 
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>Shipping</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.Date, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Date, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
+        <div class="col-lg-4 col-md-6">
+            <div class="card" style="height: 550px">
+                <div class="card-body">
+                    <p style="text-align:center; margin:0">
+                        <a><b>Sender Information</b></a>
+                    </p>
+                    <br />
+                    <div class="form-group">
+                        @Html.EditorFor(model => model.SenderName, new { htmlAttributes = new { @class = "form-control", @placeholder = "Sender Name" } })
+                        @Html.ValidationMessageFor(model => model.SenderName, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        <select class="form-control" id="SenderProvince_Id" name="SenderProvince_Id">
+                            <option selected>Select Province</option>
+                            @foreach (var get in (IEnumerable<SelectListItem>)ViewBag.SProvinceList)
+                            {
+                                if (get.Selected)
+                                {
+                                        <option value="@get.Value" selected>@get.Text</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@get.Value">@get.Text</option>
+                                    }
+                                }
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <select class="form-control" id="SenderRegency_Id" name="SenderRegency_Id">
+                            <option selected>Select Regency</option>
+                            @foreach (var get in (IEnumerable<SelectListItem>)ViewBag.SRegencyList)
+                            {
+                                if (get.Selected)
+                                {
+                                    <option value="@get.Value" selected>@get.Text</option>
+                                }
+                                else
+                                {
+                                    <option value="@get.Value">@get.Text</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <select class="form-control" id="SenderDistrict_Id" name="SenderDistrict_Id">
+                            <option selected>Select District</option>
+                            @foreach (var get in (IEnumerable<SelectListItem>)ViewBag.SDistrictList)
+                            {
+                                if (get.Selected)
+                                {
+                                    <option value="@get.Value" selected>@get.Text</option>
+                                }
+                                else
+                                {
+                                    <option value="@get.Value">@get.Text</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <select class="form-control" id="SenderVillage_Id" name="SenderVillage_Id">
+                            <option selected>Select Village</option>
+                            @foreach (var get in (IEnumerable<SelectListItem>)ViewBag.SVillageList)
+                            {
+                                if (get.Selected)
+                                {
+                                    <option value="@get.Value" selected>@get.Text</option>
+                                }
+                                else
+                                {
+                                    <option value="@get.Value">@get.Text</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        @Html.TextAreaFor(model => model.SenderAddress, new { htmlAttributes = new { @class = "form-control", @placeholder = "Sender Address"} })
+                        @Html.ValidationMessageFor(model => model.SenderAddress, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        @Html.EditorFor(model => model.SenderPhone, new { htmlAttributes = new { @class = "form-control", @placeholder = "Sender Phone", @type = "number" } })
+                        @Html.ValidationMessageFor(model => model.SenderPhone, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-6">
+            <div class="card" style="height: 550px">
+                <div class="card-body">
+                    <p style="text-align:center; margin:0">
+                        <a><b>Receiver Information</b></a>
+                    </p>
+                    <br />
+                    <div class="form-group">
+                        @Html.EditorFor(model => model.ReceiverName, new { htmlAttributes = new { @class = "form-control", @placeholder = "Receiver Name" } })
+                        @Html.ValidationMessageFor(model => model.ReceiverName, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        <select class="form-control" id="ReceiverProvince_Id" name="ReceiverProvince_Id">
+                            <option selected>Select Province</option>
+                            @foreach (var get in (IEnumerable<SelectListItem>)ViewBag.SProvinceList)
+                            {
+                                if (get.Selected)
+                                {
+                                    <option value="@get.Value" selected>@get.Text</option>
+                                }
+                                else
+                                {
+                                    <option value="@get.Value">@get.Text</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <select class="form-control" id="ReceiverRegency_Id" name="ReceiverRegency_Id">
+                            <option selected>Select Regency</option>
+                            @foreach (var get in (IEnumerable<SelectListItem>)ViewBag.SRegencyList)
+                            {
+                                if (get.Selected)
+                                {
+                                    <option value="@get.Value" selected>@get.Text</option>
+                                }
+                                else
+                                {
+                                    <option value="@get.Value">@get.Text</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <select class="form-control" id="ReceiverDistrict_Id" name="ReceiverDistrict_Id">
+                            <option selected>Select District</option>
+                            @foreach (var get in (IEnumerable<SelectListItem>)ViewBag.SDistrictList)
+                            {
+                                if (get.Selected)
+                                {
+                                    <option value="@get.Value" selected>@get.Text</option>
+                                }
+                                else
+                                {
+                                    <option value="@get.Value">@get.Text</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <select class="form-control" id="ReceiverVillage_Id" name="ReceiverVillage_Id">
+                            <option selected>Select Village</option>
+                            @foreach (var get in (IEnumerable<SelectListItem>)ViewBag.SVillageList)
+                            {
+                                if (get.Selected)
+                                {
+                                    <option value="@get.Value" selected>@get.Text</option>
+                                }
+                                else
+                                {
+                                    <option value="@get.Value">@get.Text</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        @Html.TextAreaFor(model => model.ReceiverAddress, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.ReceiverAddress, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        @Html.EditorFor(model => model.ReceiverPhone, new { htmlAttributes = new { @class = "form-control", @placeholder = "Receiver Phone", @type = "number" } })
+                        @Html.ValidationMessageFor(model => model.ReceiverPhone, "", new { @class = "text-danger" })
+                    </div>
+                </div>
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Quantity, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Quantity, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Quantity, "", new { @class = "text-danger" })
-            </div>
-        </div>
+        <div class="col-lg-4 col-md-6">
+            <div class="card" style="height: 550px">
+                <div class="card-body">
+                    <p style="text-align:center; margin:0">
+                        <a><b>Shipping Information</b></a>
+                    </p>
+                    <br />
+                    <div class="form-group">
+                        <select class="form-control" id="Category_Id" name="Category_Id">
+                            <option selected>Select Category</option>
+                            @foreach (var get in (IEnumerable<SelectListItem>)ViewBag.SCategoryList)
+                            {
+                                if (get.Selected)
+                                {
+                                    <option value="@get.Value" selected>@get.Text</option>
+                                }
+                                else
+                                {
+                                    <option value="@get.Value">@get.Text</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <select class="form-control" id="Package_Id" name="Package_Id">
+                            <option selected>Select Package</option>
+                            @foreach (var get in (IEnumerable<SelectListItem>)ViewBag.SPackageList)
+                            {
+                                if (get.Selected)
+                                {
+                                    <option value="@get.Value" selected>@get.Text</option>
+                                }
+                                else
+                                {
+                                    <option value="@get.Value">@get.Text</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <select class="form-control" id="Destination_Branch_Id" name="Destination_Branch_Id">
+                            <option selected>Select Branch</option>
+                            @foreach (var get in (IEnumerable<SelectListItem>)ViewBag.SBranchList)
+                            {
+                                if (get.Selected)
+                                {
+                                    <option value="@get.Value" selected>@get.Text</option>
+                                }
+                                else
+                                {
+                                    <option value="@get.Value">@get.Text</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <select class="form-control" id="StatusShipping_Id" name="StatusShipping_Id">
+                            @foreach (var get in (IEnumerable<SelectListItem>)ViewBag.SStatusList)
+                            {
+                                if (get.Selected)
+                                {
+                                    <option value="@get.Value" selected>@get.Text</option>
+                                }
+                                else
+                                {
+                                    <option value="@get.Value">@get.Text</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                    <div class="form-group col-md-6">
+                        @Html.EditorFor(model => model.Quantity, new { htmlAttributes = new { @class = "form-control", @placeholder = "Quantity"} })
+                        @Html.ValidationMessageFor(model => model.Quantity, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group col-md-6">
+                        @Html.EditorFor(model => model.Weight, new { htmlAttributes = new { @class = "form-control", @placeholder = "Weight" } })
+                        @Html.ValidationMessageFor(model => model.Weight, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        <select class="form-control" id="Assurances" name="Assurances">
+                            <option selected>Select Assurance</option>
+                            <option value="true">Yes</option>
+                            <option value="false">No</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-6">
+                        @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control", @placeholder = "Price", @id = "price"} })
+                        @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group col-md-6">
+                        @Html.EditorFor(model => model.TotalPrice, new { htmlAttributes = new { @class = "form-control", @placeholder = "Total Price",@id = "totalprice" } })
+                        @Html.ValidationMessageFor(model => model.TotalPrice, "", new { @class = "text-danger" })
+                    </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Assurances, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Assurances, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Assurances, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Weight, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Weight, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Weight, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Category_Id, "Category_Id", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("Category_Id", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.Category_Id, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.SenderName, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.SenderName, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.SenderName, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.SenderPhone, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.SenderPhone, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.SenderPhone, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.SenderProvince_Id, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.SenderProvince_Id, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.SenderProvince_Id, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.SenderRegency_Id, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.SenderRegency_Id, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.SenderRegency_Id, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.SenderDistrict_Id, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.SenderDistrict_Id, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.SenderDistrict_Id, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.SenderVillage_Id, "SenderVillage_Id", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("SenderVillage_Id", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.SenderVillage_Id, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.SenderAddress, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.SenderAddress, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.SenderAddress, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.ReceiverName, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.ReceiverName, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ReceiverName, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.ReceiverPhone, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.ReceiverPhone, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ReceiverPhone, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.ReceiverProvince_Id, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.ReceiverProvince_Id, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ReceiverProvince_Id, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.ReceiverRegency_Id, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.ReceiverRegency_Id, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ReceiverRegency_Id, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.ReceiverDistrict_Id, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.ReceiverDistrict_Id, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ReceiverDistrict_Id, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.ReceiverVillage_Id, "ReceiverVillage_Id", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("ReceiverVillage_Id", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.ReceiverVillage_Id, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.ReceiverAddress, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.ReceiverAddress, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ReceiverAddress, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.TotalPrice, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.TotalPrice, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.TotalPrice, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.StatusShippings_Id, "StatusShippings_Id", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("StatusShippings_Id", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.StatusShippings_Id, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Employee_Id, "Employee_Id", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("Employee_Id", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.Employee_Id, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Package_Id, "Package_Id", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("Package_Id", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.Package_Id, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Destination_Branch_Id, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Destination_Branch_Id, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Destination_Branch_Id, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10" >
+                            <p style="text-align:center">
+                                <a class="btn btn-warning fa fa-arrow-circle-left" style="border-radius: 13px;" href="@Url.Action("Index")"> Back To List</a>
+                                <input type="submit" value="Create" class="btn btn-success fa fa-check-square fa fa-arrow-circle-left" style="border-radius: 13px; color:black" />
+                            </p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 }
+<script src="~/Content/assets/plugins/jquery/jquery.min.js"></script>
+<!-- Bootstrap tether Core JavaScript -->
+@*<script src="~/Content/assets/plugins/bootstrap/js/popper.min.js"></script>*@ <!--bikin eror dropdown-->
+<script src="~/Content/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+<!-- slimscrollbar scrollbar JavaScript -->
+<script src="~/Content/assets/js/jquery.slimscroll.js"></script>
+<!--Wave Effects -->
+<script src="~/Content/assets/js/waves.js"></script>
+<!--Menu sidebar -->
+<script src="~/Content/assets/js/sidebarmenu.js"></script>
+<!--stickey kit -->
+<script src="~/Content/assets/plugins/sticky-kit-master/dist/sticky-kit.min.js"></script>
+<!--Custom JavaScript -->
+<script src="~/Content/assets/js/custom.min.js"></script>
+<!-- This is data table -->
+<script src="~/Content/assets/plugins/datatables/jquery.dataTables.min.js"></script>
+<!-- start - This is for export functionality only -->
+<script src="~/Scripts/dataTables.buttons.min.js"></script>
+<script src="~/Scripts/buttons.flash.min.js"></script>
+<script src="~/Scripts/jszip.min.js"></script>
+<script src="~/Scripts/pdfmake.min.js"></script>
+<script src="~/Scripts/vfs_fonts.js"></script>
+<script src="~/Scripts/buttons.html5.min.js"></script>
+<script src="~/Scripts/buttons.print.min.js"></script>
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+<link href="~/Content/jquery-ui.css" rel="stylesheet" />
+<script src="~/Scripts/jquery-ui.js"></script>
+<script src="~/Scripts/ManageScript.js"></script>
+<style>
+    span.error {
+        display: block;
+        visibility: hidden;
+        color: red;
+        font-size: 90%;
+    }
+</style>
+
+<script>
+    $(document).ready(function () {
+
+        function setSelectedIndex(s, i) {
+            s.options[i - 1].selected = true;
+            return;
+        }
+        setSelectedIndex(document.getElementById("SenderProvince_Id"), 1);
+        setSelectedIndex(document.getElementById("SenderRegency_Id"), 1);
+        setSelectedIndex(document.getElementById("SenderDistrict_Id"), 1);
+        setSelectedIndex(document.getElementById("SenderVillage_Id"), 1);
+        setSelectedIndex(document.getElementById("ReceiverProvince_Id"), 1);
+        setSelectedIndex(document.getElementById("ReceiverRegency_Id"), 1);
+        setSelectedIndex(document.getElementById("ReceiverDistrict_Id"), 1);
+        setSelectedIndex(document.getElementById("ReceiverVillage_Id"), 1);
+        setSelectedIndex(document.getElementById("Destination_Branch_Id"), 1);
+        setSelectedIndex(document.getElementById("Package_Id"), 1);
+        setSelectedIndex(document.getElementById("StatusShipping_Id"), 2);
+        setSelectedIndex(document.getElementById("Assurances"), 1);
+
+        $("Assurance").change(function () {
+            $.get("/Shippings/Price", {
+                Assurance : $("#Assurance").val(),
+                Package_Id: $("#Package_Id").val(),
+                Destination_Branch_Id : $('#Destination_Branch_Id').val(),
+                Quantity : $('#Quantity').val(),
+            })
+        })
+
+
+        $("#SenderProvince_Id").change(function () {
+            $.get("/ManageApps/RegencyList", { dataId: $("#SenderProvince_Id").val() }, function (data) {
+                $("#SenderRegency_Id").empty();
+                $("#SenderRegency_Id").append("<option selected value =''>" + "Select Regency" + "</option>")
+                $.each(data, function (index, row) {
+                    $("#SenderRegency_Id").append("<option value ='" + row.Id + "'>" + row.Name + "</option>")
+                });
+            });
+        })
+        $("#SenderRegency_Id").change(function () {
+            $.get("/ManageApps/DistrictList", { dataId: $("#SenderRegency_Id").val() }, function (data) {
+                $("#SenderDistrict_Id").empty();
+                $("#SenderDistrict_Id").append("<option selected value =''>" + "Select District" + "</option>")
+                $.each(data, function (index, row) {
+                    $("#SenderDistrict_Id").append("<option value ='" + row.Id + "'>" + row.Name + "</option>")
+                });
+            });
+        })
+        $("#SenderDistrict_Id").change(function () {
+            $.get("/ManageApps/VillageList", { dataId: $("#SenderDistrict_Id").val() }, function (data) {
+                $("#SenderVillage_Id").empty();
+                $("#SenderVillage_Id").append("<option selected value =''>" + "Select Village" + "</option>")
+                $.each(data, function (index, row) {
+                    $("#SenderVillage_Id").append("<option value ='" + row.Id + "'>" + row.Name + "</option>")
+                });
+            });
+        })
+
+        $("#ReceiverProvince_Id").change(function () {
+            $.get("/ManageApps/RegencyList", { dataId: $("#ReceiverProvince_Id").val() }, function (data) {
+                $("#ReceiverRegency_Id").empty();
+                $("#ReceiverRegency_Id").append("<option selected value =''>" + "Select Regency" + "</option>")
+                $.each(data, function (index, row) {
+                    $("#ReceiverRegency_Id").append("<option value ='" + row.Id + "'>" + row.Name + "</option>")
+                });
+            });
+        })
+        $("#ReceiverRegency_Id").change(function () {
+            $.get("/ManageApps/DistrictList", { dataId: $("#ReceiverRegency_Id").val() }, function (data) {
+                $("#ReceiverDistrict_Id").empty();
+                $("#ReceiverDistrict_Id").append("<option selected value =''>" + "Select District" + "</option>")
+                $.each(data, function (index, row) {
+                    $("#ReceiverDistrict_Id").append("<option value ='" + row.Id + "'>" + row.Name + "</option>")
+                });
+            });
+        })
+        $("#ReceiverDistrict_Id").change(function () {
+            $.get("/ManageApps/VillageList", { dataId: $("#ReceiverDistrict_Id").val() }, function (data) {
+                $("#ReceiverVillage_Id").empty();
+                $("#ReceiverVillage_Id").append("<option selected value =''>" + "Select Village" + "</option>")
+                $.each(data, function (index, row) {
+                    $("#ReceiverVillage_Id").append("<option value ='" + row.Id + "'>" + row.Name + "</option>")
+                });
+            });
+        })
+    })
+</script>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
+
+

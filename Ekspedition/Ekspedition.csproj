@@ -241,7 +241,10 @@
     <Compile Include="StatusShipping.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="ViewModel\Admin\AdminVMBranch.cs" />
+    <Compile Include="ViewModel\Admin\AdminVMCategory.cs" />
     <Compile Include="ViewModel\Admin\AdminVMEmployee.cs" />
+    <Compile Include="ViewModel\Admin\AdminVMShipping.cs" />
     <Compile Include="ViewModel\DashboardAdmin.cs" />
     <Compile Include="ViewModel\Class1.cs" />
     <Compile Include="ViewModel\ManageApps.cs" />
@@ -4130,6 +4133,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\jszip.min.js" />
+    <Content Include="Scripts\ManageScript.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\MyScript.js" />
     <Content Include="Scripts\pdfmake.min.js" />
@@ -4259,6 +4263,16 @@
     <Content Include="Views\ManageApps\Index.cshtml" />
     <Content Include="Views\Shared\_PartialLoginLogoutAdmin.cshtml" />
     <Content Include="Views\DashboardAdmin\ListHistoryShipping.cshtml" />
+    <Content Include="Views\ManageApps\EditCategory.cshtml" />
+    <Content Include="Views\ManageApps\DeleteCategory.cshtml" />
+    <Content Include="Views\ManageApps\DeleteStatus.cshtml" />
+    <Content Include="Views\ManageApps\DeleteBranch.cshtml" />
+    <Content Include="Views\ManageApps\DeleteWarehouse.cshtml" />
+    <Content Include="Views\ManageApps\DeletePackage.cshtml" />
+    <Content Include="Views\ManageApps\EditPackage.cshtml" />
+    <Content Include="Views\ManageApps\EditStatus.cshtml" />
+    <Content Include="Views\ManageApps\EditBranch.cshtml" />
+    <Content Include="Views\ManageApps\EditWarehouse.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

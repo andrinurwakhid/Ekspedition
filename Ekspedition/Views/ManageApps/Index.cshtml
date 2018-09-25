@@ -15,59 +15,20 @@
     var SSList = data2.ToList();
 
     var data3 = from b in db.Branchs
-                join e in db.Employees on b.Id equals e.Branch_Id
-                join s in db.Shippings on e.Branch_Id equals s.Destination_Branch_Id
                 join v in db.Villages on b.Village_Id equals v.Id
-                select new { b,e,s,v };
+                select new { b, v };
     var BList = data3.ToList();
 
     var data4 = from w in db.Warehouses
-                join b in db.Branchs on w.Id equals b.Warehouse_Id
-                join e in db.Employees on w.Id equals e.Branch_Id
-                join s in db.Shippings on e.Branch_Id equals s.Destination_Branch_Id
                 join v in db.Villages on w.Village_Id equals v.Id
-                select new { w,b,e,s,v };
+                select new { w, v };
     var WList = data4.ToList();
+
     var data5 = from p in db.Packages select new { p };
     var PList = data5.ToList();
 
 
 }
-<div id="editcategory" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">Edit Profile </h4>
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> ×</button>
-            </div>
-            <div class="modal-body">
-                <form>
-                    <input hidden id="eid" />
-                    <div class="form-group col-md-12">
-                        <label for="recipient-name" class="control-label"><b>First Name</b></label>
-                        <input type="text" class="form-control" id="efirstname" />
-                        <span class="error">Error !</span>
-                    </div>
-                    <div class="form-group col-md-12">
-                        <label for="recipient-name" class="control-label"><b>Last Name</b></label>
-                        <input type="text" class="form-control" id="elastname" />
-                        <span class="error">Error !</span>
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label for="recipient-name" class="control-label"><b>Position</b></label>
-                        <input type="text" class="form-control" id="eposition" />
-                        <span class="error">Error !</span>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button id="closeedit" type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
-                <button id="updateadmin" type="button" class="btn btn-danger waves-effect waves-light">Save changes</button>
-            </div>
-        </div>
-    </div>
-</div>
-
 
 <h2><b>Manage Apps</b></h2> <br />
 <link href="~/Content/assets/css/style.css" rel="stylesheet">
@@ -94,14 +55,15 @@
                             <div class="modal-body">
                                 <form>
                                     <div class="form-group">
-                                        <label for="recipient-name" class="control-label">Category Name</label>
-                                        <input type="text" class="form-control" id="recipient-name">
+                                        <label class="control-label">Category Name</label>
+                                        <input type="text" class="form-control" id="cname">
+                                        <span class="error">Error !</span>
                                     </div>
                                 </form>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-danger waves-effect waves-light">Save changes</button>
+                                <button id="CloseAddCategory" type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
+                                <button id="AddCategory" type="button" class="btn btn-danger waves-effect waves-light">Save changes</button>
                             </div>
                         </div>
                     </div>
@@ -119,12 +81,291 @@
                             @foreach (var item in CList)
                             {
                                 <tr>
-                                    <td>@Html.DisplayFor(modelItem => item.c.Id)</td>
-                                    <td>@Html.DisplayFor(modelItem => item.c.Name)</td>
+                                    <td id="categoryid">@Html.DisplayFor(modelItem => item.c.Id)</td>
+                                    <td id="categoryname">@Html.DisplayFor(modelItem => item.c.Name)</td>
                                     <td>
-                                        <a class="btn btn-warning" style="border-radius: 13px;" data-toggle="modal" data-target="#editcategory" href="#">Edit</a>
-                                        <a class="btn btn-info" style="border-radius: 13px;" data-toggle="modal" data-target="#detailcategory" href="#">Details</a>
-                                        <a class="btn btn-danger" style="border-radius: 13px;" data-toggle="modal" data-target="#deletecategory" href="#">Delete</a>
+                                        <a class="btn btn-warning" style="border-radius: 13px;" href="@Url.Action("EditCategory", "ManageApps", new { id = item.c.Id })">Edit</a>
+                                        <a hidden class="btn btn-info" style="border-radius: 13px;" href="@Url.Action("DetailCategory", "ManageApps", new { id = item.c.Id })">Details</a>
+                                        <a class="btn btn-danger" style="border-radius: 13px;" href="@Url.Action("DeleteCategory", "ManageApps", new { id = item.c.Id })">Delete</a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="card" id="liststatus">
+            <div class="card-body">
+                <h4 class="card-title">Status</h4>
+                <h6 class="card-subtitle">Manage Status</h6>
+                <p style="text-align:right">
+                    @*<a class="btn btn-outline-success" style="border-radius: 13px;" href="@Url.Action("Create", "Categories")">Create New</a>*@
+                    <a class="btn btn-outline-success" data-toggle="modal" data-target="#responsive-modal2" style="border-radius: 13px;">Create New</a>
+                </p>
+                <div id="responsive-modal2" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title">Add Status </h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> ×</button>
+                            </div>
+                            <div class="modal-body">
+                                <form>
+                                    <div class="form-group">
+                                        <label class="control-label">Status Name</label>
+                                        <input type="text" class="form-control" id="sname">
+                                        <span class="error">Error !</span>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button id="CloseAddStatus" type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
+                                <button id="AddStatus" type="button" class="btn btn-danger waves-effect waves-light">Save changes</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="table-responsive m-t-5">
+                    <table id="example2" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in SSList)
+                            {
+                                <tr>
+                                    <td>@Html.DisplayFor(modelItem => item.ss.Id)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.ss.Name)</td>
+                                    <td>
+                                        <a class="btn btn-warning" style="border-radius: 13px;" href="@Url.Action("EditStatus", "ManageApps", new { id = item.ss.Id })">Edit</a>
+                                        <a hidden class="btn btn-info" style="border-radius: 13px;" href="@Url.Action("DetailStatus", "ManageApps", new { id = item.ss.Id })">Details</a>
+                                        <a class="btn btn-danger" style="border-radius: 13px;" href="@Url.Action("DeleteStatus", "ManageApps", new { id = item.ss.Id })">Delete</a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="card" id="listbranch">
+            <div class="card-body">
+                <h4 class="card-title">Branch</h4>
+                <h6 class="card-subtitle">Manage Branch</h6>
+                <p style="text-align:right">
+                    @*<a class="btn btn-outline-success" style="border-radius: 13px;" href="@Url.Action("Create", "Categories")">Create New</a>*@
+                    <a id="btnAddBranch" class="btn btn-outline-success" data-toggle="modal" data-target="#responsive-modal3" style="border-radius: 13px;">Create New</a>
+                </p>
+                <div id="responsive-modal3" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title">Add Branch </h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> ×</button>
+                            </div>
+                            <div class="modal-body">
+                                <form>
+                                    <div class="form-group col-md-12" style="margin:0">
+                                        <label class="control-label">Name</label>
+                                        <input type="text" class="form-control" id="bname">
+                                        <span class="error">Error !</span>
+                                    </div>
+                                    <div class="form-group col-md-6" style="margin:0">
+                                        <label class="control-label">Province</label>
+                                        <select class="form-control" id="bprovince">
+                                            <option selected>Select Province</option>
+                                            @foreach (var get in (IEnumerable<SelectListItem>)ViewBag.ProvList)
+                                            {
+                                                if (get.Selected)
+                                                {
+                                                    <option value="@get.Value">@get.Text</option>
+                                                }
+                                                else
+                                                {
+                                                    <option value="@get.Value">@get.Text</option>
+                                                }
+                                            }
+                                        </select>
+                                        <span class="error">Error !</span>
+                                    </div>
+                                    <div class="form-group col-md-6" style="margin:0">
+                                        <label class="control-label">Regency</label>
+                                        @Html.DropDownListFor(model => model.RegencyID, new SelectList(""), "Select Regency", new { @class = "form-control", @id = "bregency" })
+                                        <span class="error">Error !</span>
+                                    </div>
+                                    <div class="form-group col-md-6" style="margin:0">
+                                        <label class="control-label">District</label>
+                                        @Html.DropDownListFor(model => model.DistrictID, new SelectList(""), "Select District", new { @class = "form-control", @id = "bdistrict" })
+                                        <span class="error">Error !</span>
+                                    </div>
+                                    <div class="form-group col-md-6" style="margin:0">
+                                        <label class="control-label">Village</label>
+                                        @Html.DropDownListFor(model => model.VillageID, new SelectList(""), "Select Village", new { @class = "form-control", @id = "bvillage" })
+                                        <span class="error">Error !</span>
+                                    </div>
+                                    <div class="form-group col-md-12" style="margin:0">
+                                        <label class="control-label">Address</label>
+                                        <textarea class="form-control" id="baddress"> </textarea>
+                                        <span class="error">Error !</span>
+                                    </div>
+                                    <div class="form-group col-md-6" style="margin:0">
+                                        <label class="control-label">Price</label>
+                                        <input type="number" class="form-control" id="bprice">
+                                        <span class="error">Error !</span>
+                                    </div>
+                                    <div class="form-group col-md-6" style="margin:0">
+                                        <label class="control-label">Warehouse</label>
+                                        <select class="form-control" id="bwarehouse">
+                                            <option selected>Select Warehouse</option>
+                                            @foreach (var get in (IEnumerable<SelectListItem>)ViewBag.EWarehouseList)
+                                            {
+                                                if (get.Selected)
+                                                {
+                                                    <option value="@get.Value">@get.Text</option>
+                                                }
+                                                else
+                                                {
+                                                    <option value="@get.Value">@get.Text</option>
+                                                }
+                                            }
+                                        </select>
+                                        <span class="error">Error !</span>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button id="CloseAddBranch" type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
+                                <button id="AddBranch" type="button" class="btn btn-danger waves-effect waves-light">Save changes</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="table-responsive m-t-5">
+                    <table id="example3" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Regency</th>
+                                <th>Province</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in BList)
+                            {
+                                <tr>
+                                    <td>@Html.DisplayFor(modelItem => item.b.Id)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.b.Name)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.b.Village.District.Regency.Name)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.b.Village.District.Regency.Province.Name)</td>
+                                    <td>
+                                        <a class="btn btn-warning" style="border-radius: 13px;" href="@Url.Action("EditBranch", "ManageApps", new { id = item.b.Id })">Edit</a>
+                                        <a  hidden class="btn btn-info" style="border-radius: 13px;" href="@Url.Action("DeleteBranch", "ManageApps", new { id = item.b.Id })">Details</a>
+                                        <a class="btn btn-danger" style="border-radius: 13px;" href="@Url.Action("DeleteBranch", "ManageApps", new { id = item.b.Id })">Delete</a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="card" id="listwarehouse">
+            <div class="card-body">
+                <h4 class="card-title">Warehouses</h4>
+                <h6 class="card-subtitle">Manage Warehouse</h6>
+                <p style="text-align:right">
+                    <a class="btn btn-outline-success" data-toggle="modal" data-target="#responsive-modal4" style="border-radius: 13px;">Create New</a>
+                </p>
+                <div id="responsive-modal4" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title">Add Warehouse </h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> ×</button>
+                            </div>
+                            <div class="modal-body">
+                                <form>
+                                    <div class="form-group col-md-12">
+                                        <label for="recipient-name" class="control-label">Warehouse Name</label>
+                                        <input type="text" class="form-control" id="wname">
+                                    </div>
+                                    <div class="form-group col-md-6" style="margin:0">
+                                        <label class="control-label">Province</label>
+                                        <select class="form-control" id="wprovince">
+                                            <option selected>Select Province</option>
+                                            @foreach (var get in (IEnumerable<SelectListItem>)ViewBag.ProvList)
+                                            {
+                                                if (get.Selected)
+                                                {
+                                                    <option value="@get.Value">@get.Text</option>
+                                                }
+                                                else
+                                                {
+                                                    <option value="@get.Value">@get.Text</option>
+                                                }
+                                            }
+                                        </select>
+                                        <span class="error">Error !</span>
+                                    </div>
+                                    <div class="form-group col-md-6" style="margin:0">
+                                        <label class="control-label">Regency</label>
+                                        @Html.DropDownListFor(model => model.RegencyID, new SelectList(""), "Select Regency", new { @class = "form-control", @id = "wregency" })
+                                        <span class="error">Error !</span>
+                                    </div>
+                                    <div class="form-group col-md-6" style="margin:0">
+                                        <label class="control-label">District</label>
+                                        @Html.DropDownListFor(model => model.DistrictID, new SelectList(""), "Select District", new { @class = "form-control", @id = "wdistrict" })
+                                        <span class="error">Error !</span>
+                                    </div>
+                                    <div class="form-group col-md-6" style="margin:0">
+                                        <label class="control-label">Village</label>
+                                        @Html.DropDownListFor(model => model.VillageID, new SelectList(""), "Select Village", new { @class = "form-control", @id = "wvillage" })
+                                        <span class="error">Error !</span>
+                                    </div>
+                                    <div class="form-group col-md-12" style="margin:0">
+                                        <label class="control-label">Address</label>
+                                        <textarea class="form-control" id="waddress"> </textarea>
+                                        <span class="error">Error !</span>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button id="CloseAddWarehouse" type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
+                                <button id="AddWarehouse" type="button" class="btn btn-danger waves-effect waves-light">Save changes</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="table-responsive m-t-5">
+                    <table id="example4" class="table display table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Name</th>
+                                <th>Regency</th>
+                                <th>Province</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in WList)
+                            {
+                                <tr>
+                                    <td>@Html.DisplayFor(modelItem => item.w.Id)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.w.Name)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.v.District.Regency.Name)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.v.District.Regency.Province.Name)</td>
+                                    <td>
+                                        <a class="btn btn-warning" style="border-radius: 13px;" href="@Url.Action("EditWarehouse", "ManageApps", new { id = item.w.Id })">Edit</a>
+                                        <a  hidden class="btn btn-info" style="border-radius: 13px;" href="@Url.Action("DetailWarehouse", "ManageApps", new { id = item.w.Id })">Details</a>
+                                        <a class="btn btn-danger" style="border-radius: 13px;" href="@Url.Action("DeleteWarehouse", "ManageApps", new { id = item.w.Id })">Delete</a>
                                     </td>
                                 </tr>
                             }
@@ -134,245 +375,68 @@
             </div>
         </div>
         <div class="card" id="listpackage">
-                <div class="card-body">
-                    <h4 class="card-title">Status Shipping</h4>
-                    <h6 class="card-subtitle">Manage Package</h6>
-                    <p style="text-align:right">
-                        <a class="btn btn-outline-success" data-toggle="modal" data-target="#responsive-modal2" style="border-radius: 13px;">Create New</a>
-                    </p>
-                    <div id="responsive-modal2" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h4 class="modal-title">Add Status Shipping </h4>
-                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> ×</button>
-                                </div>
-                                <div class="modal-body">
-                                    <form>
-                                        <div class="form-group">
-                                            <label for="recipient-name" class="control-label">Status Name</label>
-                                            <input type="text" class="form-control" id="recipient-name">
-                                        </div>
-                                    </form>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-danger waves-effect waves-light">Save changes</button>
-                                </div>
+            <div class="card-body">
+                <h4 class="card-title">Package</h4>
+                <h6 class="card-subtitle">Manage Package</h6>
+                <p style="text-align:right">
+                    <a class="btn btn-outline-success" data-toggle="modal" data-target="#responsive-modal5" style="border-radius: 13px;">Create New</a>
+                </p>
+                <div id="responsive-modal5" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title">Add Package </h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> ×</button>
+                            </div>
+                            <div class="modal-body">
+                                <form>
+                                    <div class="form-group col-md-12">
+                                        <label for="recipient-name" class="control-label">Package Name</label>
+                                        <input type="text" class="form-control" id="pname">
+                                    </div>
+                                    <div class="form-group col-md-12" style="margin:0">
+                                        <label class="control-label">Price</label>
+                                        <textarea class="form-control" id="pprice"> </textarea>
+                                        <span class="error">Error !</span>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button id="CloseAddPackage" type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
+                                <button id="AddPackage" type="button" class="btn btn-danger waves-effect waves-light">Save changes</button>
                             </div>
                         </div>
-                    </div>
-                    <div class="table-responsive m-t-5">
-                        <table id="example2" class="table display table-bordered table-striped">
-                            <thead>
-                                <tr>
-                                    <th>Id</th>
-                                    <th>Name</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach (var item in SSList)
-                                {
-                                    <tr>
-                                        <td>@Html.DisplayFor(modelItem => item.ss.Id)</td>
-                                        <td>@Html.DisplayFor(modelItem => item.ss.Name)</td>
-                                        <td>
-                                            <a class="btn btn-warning" style="border-radius: 13px;" data-toggle="modal" data-target="#editstatus" href="#">Edit</a>
-                                            <a class="btn btn-info" style="border-radius: 13px;" data-toggle="modal" data-target="#detailstatus" href="#">Details</a>
-                                            <a class="btn btn-danger" style="border-radius: 13px;" data-toggle="modal" data-target="#deletestatus" href="#">Delete</a>
-                                        </td>
-                                    </tr>
-                                }
-                            </tbody>
-                        </table>
                     </div>
                 </div>
-            </div>
-            <div class="card" id="listbranch">
-                <div class="card-body">
-                    <h4 class="card-title">Branchs</h4>
-                    <h6 class="card-subtitle">Manage Branch</h6>
-                    <p style="text-align:right">
-                        <a class="btn btn-outline-success" data-toggle="modal" data-target="#responsive-modal3" style="border-radius: 13px;">Create New</a>
-                    </p>
-                    <div id="responsive-modal3" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h4 class="modal-title">Add Branch </h4>
-                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> ×</button>
-                                </div>
-                                <div class="modal-body">
-                                    <form>
-                                        <div class="form-group">
-                                            <label for="recipient-name" class="control-label">Branch Name</label>
-                                            <input type="text" class="form-control" id="recipient-name">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="message-text" class="control-label">Province</label>
-                                            <textarea class="form-control" id="message-text"></textarea>
-                                        </div>
-                                    </form>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-danger waves-effect waves-light">Save changes</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="table-responsive m-t-5">
-                        <table id="example3" class="table display table-bordered table-striped">
-                            <thead>
+                <div class="table-responsive m-t-5">
+                    <table id="example5" class="table display table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Name</th>
+                                <th>Price</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in PList)
+                            {
                                 <tr>
-                                    <th>Id</th>
-                                    <th>Name</th>
-                                    <th>Regency</th>
-                                    <th>Province</th>
-                                    <th>Actions</th>
+                                    <td>@Html.DisplayFor(modelItem => item.p.Id)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.p.Name)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.p.Price)</td>
+                                    <td>
+                                        <a class="btn btn-warning" style="border-radius: 13px;" href="@Url.Action("EditPackage", "ManageApps", new { id = item.p.Id })">Edit</a>
+                                        <a  hidden class="btn btn-info" style="border-radius: 13px;" href="@Url.Action("DetailPackage", "ManageApps", new { id = item.p.Id })">Details</a>
+                                        <a class="btn btn-danger" style="border-radius: 13px;" href="@Url.Action("DeletePackage", "ManageApps", new { id = item.p.Id })">Delete</a>
+                                    </td>
                                 </tr>
-                            </thead>
-                            <tbody>
-                                @foreach (var item in BList)
-                                {
-                                    <tr>
-                                        <td>@Html.DisplayFor(modelItem => item.b.Id)</td>
-                                        <td>@Html.DisplayFor(modelItem => item.b.Name)</td>
-                                        <td>@Html.DisplayFor(modelItem => item.v.District.Regency.Name)</td>
-                                        <td>@Html.DisplayFor(modelItem => item.v.District.Regency.Province.Name)</td>
-                                        <td>
-                                            <a class="btn btn-warning" style="border-radius: 13px;" data-toggle="modal" data-target="#editbranch" href="#">Edit</a>
-                                            <a class="btn btn-info" style="border-radius: 13px;" data-toggle="modal" data-target="#detailbranch" href="#">Details</a>
-                                            <a class="btn btn-danger" style="border-radius: 13px;" data-toggle="modal" data-target="#deletebranch" href="#">Delete</a>
-                                        </td>
-                                    </tr>
-                                }
-                            </tbody>
-                        </table>
-                    </div>
+                            }
+                        </tbody>
+                    </table>
                 </div>
             </div>
-            <div class="card" id="listwarehouse">
-                <div class="card-body">
-                    <h4 class="card-title">Warehouses</h4>
-                    <h6 class="card-subtitle">Manage Warehouse</h6>
-                    <p style="text-align:right">
-                        <a class="btn btn-outline-success" data-toggle="modal" data-target="#responsive-modal4" style="border-radius: 13px;">Create New</a>
-                    </p>
-                    <div id="responsive-modal4" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h4 class="modal-title">Add Warehouse </h4>
-                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> ×</button>
-                                </div>
-                                <div class="modal-body">
-                                    <form>
-                                        <div class="form-group">
-                                            <label for="recipient-name" class="control-label">Warehouse Name</label>
-                                            <input type="text" class="form-control" id="recipient-name">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="message-text" class="control-label">Branch Name</label>
-                                            <textarea class="form-control" id="message-text"></textarea>
-                                        </div>
-                                    </form>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-danger waves-effect waves-light">Save changes</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="table-responsive m-t-5">
-                        <table id="example4" class="table display table-bordered table-striped">
-                            <thead>
-                                <tr>
-                                    <th>Id</th>
-                                    <th>Name</th>
-                                    <th>Regency</th>
-                                    <th>Province</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach (var item in WList)
-                                {
-                                    <tr>
-                                        <td>@Html.DisplayFor(modelItem => item.w.Id)</td>
-                                        <td>@Html.DisplayFor(modelItem => item.w.Name)</td>
-                                        <td>@Html.DisplayFor(modelItem => item.v.District.Regency.Name)</td>
-                                        <td>@Html.DisplayFor(modelItem => item.v.District.Regency.Province.Name)</td>
-                                        <td>
-                                            <a class="btn btn-warning" style="border-radius: 13px;" data-toggle="modal" data-target="#editwarehouse" href="#">Edit</a>
-                                            <a class="btn btn-info" style="border-radius: 13px;" data-toggle="modal" data-target="#detailwarehouse" href="#">Details</a>
-                                            <a class="btn btn-danger" style="border-radius: 13px;" data-toggle="modal" data-target="#deletewarehouse" href="#">Delete</a>
-                                        </td>
-                                    </tr>
-                                }
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-            <div class="card" id="liststatus">
-                <div class="card-body">
-                    <h4 class="card-title">Packages</h4>
-                    <h6 class="card-subtitle">Manage Package</h6>
-                    <p style="text-align:right">
-                        <a class="btn btn-outline-success" data-toggle="modal" data-target="#responsive-modal5" style="border-radius: 13px;">Create New</a>
-                    </p>
-                    <div id="responsive-modal5" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h4 class="modal-title">Add Status </h4>
-                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> ×</button>
-                                </div>
-                                <div class="modal-body">
-                                    <form>
-                                        <div class="form-group">
-                                            <label for="recipient-name" class="control-label">Package Name</label>
-                                            <input type="text" class="form-control" id="recipient-name">
-                                        </div>
-                                    </form>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-danger waves-effect waves-light">Save changes</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="table-responsive m-t-5">
-                        <table id="example5" class="table display table-bordered table-striped">
-                            <thead>
-                                <tr>
-                                    <th>Id</th>
-                                    <th>Name</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach (var item in PList)
-                                {
-                                    <tr>
-                                        <td>@Html.DisplayFor(modelItem => item.p.Id)</td>
-                                        <td>@Html.DisplayFor(modelItem => item.p.Name)</td>
-                                        <td>
-                                            <a class="btn btn-warning" style="border-radius: 13px;" data-toggle="modal" data-target="#editcategory" href="#">Edit</a>
-                                            <a class="btn btn-info" style="border-radius: 13px;" data-toggle="modal" data-target="#detailcategory" href="#">Details</a>
-                                            <a class="btn btn-danger" style="border-radius: 13px;" data-toggle="modal" data-target="#deletecategory" href="#">Delete</a>
-                                        </td>
-                                    </tr>
-                                }
-                            </tbody>
-                        </table>
-                    </div>
-                 </div>
-            </div>
+        </div>
     </div>
 </div>
 <script src="~/Content/assets/plugins/jquery/jquery.min.js"></script>
@@ -399,6 +463,18 @@
 <script src="~/Scripts/vfs_fonts.js"></script>
 <script src="~/Scripts/buttons.html5.min.js"></script>
 <script src="~/Scripts/buttons.print.min.js"></script>
+
+<link href="~/Content/jquery-ui.css" rel="stylesheet" />
+<script src="~/Scripts/jquery-ui.js"></script>
+<script src="~/Scripts/ManageScript.js"></script>
+<style>
+    span.error {
+        display: block;
+        visibility: hidden;
+        color: red;
+        font-size: 90%;
+    }
+</style>
 <!-- end - This is for export functionality only -->
 <script>
             $('#example1').DataTable();
@@ -447,7 +523,104 @@
         ]
     });
 </script>
+<script>
+    $(document).ready(function () {
+        $("#btnAddBranch").click(function () {
+
+            function setSelectedIndex(s, i) {
+                s.options[i - 1].selected = true;
+                return;
+            }
+            setSelectedIndex(document.getElementById("bprovince"), 1);
+            setSelectedIndex(document.getElementById("bregency"), 1);
+            setSelectedIndex(document.getElementById("bdistrict"), 1);
+            setSelectedIndex(document.getElementById("bvillage"), 1);
+            setSelectedIndex(document.getElementById("bwarehouse"), 1);
+        })
+        $("#bprovince").change(function () {
+            $.get("/ManageApps/RegencyList", { dataId: $("#bprovince").val() }, function (data) {
+                $("#bregency").empty();
+                $("#bregency").append("<option selected value =''>" + "Select Regency" + "</option>")
+                $.each(data, function (index, row) {
+                    $("#bregency").append("<option value ='" + row.Id + "'>" + row.Name + "</option>")
+                });
+            });
+        })
+        $("#wprovince").change(function () {
+            $.get("/ManageApps/RegencyList", { dataId: $("#wprovince").val() }, function (data) {
+                $("#wregency").empty();
+                $("#wregency").append("<option selected value =''>" + "Select Regency" + "</option>")
+                $.each(data, function (index, row) {
+                    $("#wregency").append("<option value ='" + row.Id + "'>" + row.Name + "</option>")
+                });
+            });
+        })
+    });
+
+
+    $(document).ready(function () {
+        $("#bregency").change(function () {
+            $.get("/ManageApps/DistrictList", { dataId: $("#bregency").val() }, function (data) {
+                $("#bdistrict").empty();
+                $("#bdistrict").append("<option selected value =''>" + "Select District" + "</option>")
+                $.each(data, function (index, row) {
+                    $("#bdistrict").append("<option value ='" + row.Id + "'>" + row.Name + "</option>")
+                });
+            });
+        })
+        $("#wregency").change(function () {
+            $.get("/ManageApps/DistrictList", { dataId: $("#wregency").val() }, function (data) {
+                $("#wdistrict").empty();
+                $("#wdistrict").append("<option selected value =''>" + "Select District" + "</option>")
+                $.each(data, function (index, row) {
+                    $("#wdistrict").append("<option value ='" + row.Id + "'>" + row.Name + "</option>")
+                });
+            });
+        })
+    });
+
+
+    $(document).ready(function () {
+        $("#bdistrict").change(function () {
+            $.get("/ManageApps/VillageList", { dataId: $("#bdistrict").val() }, function (data) {
+                $("#bvillage").empty();
+                $("#bvillage").append("<option selected value =''>" + "Select Village" + "</option>")
+                $.each(data, function (index, row) {
+                    $("#bvillage").append("<option value ='" + row.Id + "'>" + row.Name + "</option>")
+                });
+            });
+        })
+        $("#wdistrict").change(function () {
+            $.get("/ManageApps/VillageList", { dataId: $("#wdistrict").val() }, function (data) {
+                $("#wvillage").empty();
+                $("#wvillage").append("<option selected value =''>" + "Select Village" + "</option>")
+                $.each(data, function (index, row) {
+                    $("#wvillage").append("<option value ='" + row.Id + "'>" + row.Name + "</option>")
+                });
+            });
+        })
+    });
+
+</script>
+
 <!-- ============================================================== -->
 <!-- Style switcher -->
 <!-- ============================================================== -->
 <script src="~/Content/assets/plugins/styleswitcher/jQuery.style.switcher.js"></script>
+<style>
+    span.error {
+        display: block;
+        visibility: hidden;
+        color: red;
+        font-size: 90%;
+    }
+</style>
+
+@{
+    if (TempData["message"] != null)
+    {
+        <script type="text/javascript">
+        alert(@Html.Raw(Json.Encode(TempData["message"])));
+        </script>
+    }
+}

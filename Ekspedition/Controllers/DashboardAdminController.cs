@@ -281,8 +281,7 @@ namespace Ekspedition.Controllers
             bool status = false;
             if (ModelState.IsValid)
             {
-                var edit = db.Employees.Where(x => x.Id.Equals(1)).SingleOrDefault();
-                edit.Id = 1;
+                var edit = db.Employees.Where(x => x.Id.Equals(AdminVMEmployees.Id)).SingleOrDefault();
                 edit.FirstName = AdminVMEmployees.FirstName;
                 edit.LastName = AdminVMEmployees.LastName;
                 edit.Position = AdminVMEmployees.Position;

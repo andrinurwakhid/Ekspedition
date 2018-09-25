@@ -1,0 +1,53 @@
+﻿@model Ekspedition.StatusShipping
+
+@{
+    ViewBag.Title = "Delete Status Shipping";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Confirmation </h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> ×</button>
+                </div>
+                <div class="modal-body">
+                    <p>You are about to delete one record.</p>
+                    <p>Do you want to proceed?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default fa fa-arrow-circle-left" style="border-radius: 13px; color:black" data-dismiss="modal"> No</button>
+                    <input type="submit" value=" Delete" class="btn btn-danger fa fa-close" style="border-radius: 13px; color:black" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="~/Scripts/jquery-2.2.4.min.js"></script>
+
+    <hr style=" border:0;border-top: 4px double #808080" />
+        <div class="form-horizontal">
+            <div class="col-lg-4 col-md-6">
+                <div class="card" style="height: 200px">
+                    <div class="card-body">
+                        <p style="text-align:center">
+                            <a><b>Status Name</b></a>
+                        </p>
+                        <div class="col-md-12">
+                            @Html.DisplayFor(model => model.Name)
+                        </div>
+                        <br />
+                        <hr style=" border:0;border-top: 4px double #808080" />
+                        <div>
+                            <p style="text-align:center">
+                                <a class="btn btn-warning fa fa-arrow-circle-left" style="border-radius: 13px; color:black" href="@Url.Action("Index")"> Back To List</a>
+                                <a class="btn btn-danger fa fa-close" style="border-radius: 13px; color:black" data-toggle="modal" data-target="#confirm-delete"> Delete</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+}

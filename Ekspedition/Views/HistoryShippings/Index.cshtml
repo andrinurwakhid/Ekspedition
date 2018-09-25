@@ -3,6 +3,20 @@
 @{
     ViewBag.Title = "Index";
 }
+<add namespace="System.Linq" />
+
+@{
+    ExpeditionEntities db = new ExpeditionEntities();
+
+    var data1 = from hs in db.HistoryShippings
+                join s in db.Shippings on hs.Shipping_Id equals s.Id
+                join ss in db.StatusShippings on hs.StatusShipping_Id equals ss.Id
+                join e in db.Employees on hs.Employee_Id equals e.Id
+                join b in db.Branchs on s.Destination_Branch_Id equals b.Id
+                join v in db.Villages on b.Village_Id equals v.Id
+                select new { hs,s,ss,e,b,v };
+    var HSList = data1.ToList();
+}
 
 <h2><b>Tracking</b></h2>
 
@@ -27,26 +41,44 @@
                                 <th>
                                     Status Shipping
                                 </th>
+                                <th>
+                                    Branch
+                                </th>
+                                <th>
+                                    Province
+                                </th>
+                                <th>
+                                    Regency
+                                </th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach (var item in Model)
+                            @foreach (var item in HSList)
                             {
                                 <tr>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.Shipping_Id)
+                                        @Html.DisplayFor(modelItem => item.hs.Shipping_Id)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.Shipping.Employee.FirstName) + @Html.DisplayFor(modelItem => item.Shipping.Employee.LastName)
+                                        @Html.DisplayFor(modelItem => item.e.FirstName)&nbsp;@Html.DisplayFor(modelItem => item.e.LastName)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.Shipping.StatusShipping.Name)
+                                        @Html.DisplayFor(modelItem => item.ss.Name)
                                     </td>
                                     <td>
-                                        <a class="btn btn-warning" style="border-radius: 13px;" href="@Url.Action("Edit", "Shippings", new { id = item.Id })">Edit</a>
-                                        <a class="btn btn-info" style="border-radius: 13px;" href="@Url.Action("Details", "Shippings", new { id = item.Id })">Details</a>
-                                        <a class="btn btn-danger" style="border-radius: 13px;" href="@Url.Action("Delete", "Shippings", new { id = item.Id })">Delete</a>
+                                        @Html.DisplayFor(modelItem => item.b.Name)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.v.District.Regency.Province.Name)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.v.District.Regency.Name)
+                                    </td>
+                                    <td>
+                                        <a class="btn btn-warning" style="border-radius: 13px;" href="@Url.Action("Edit", "Shippings", new { id = item.hs.Id })">Edit</a>
+                                        <a class="btn btn-info" style="border-radius: 13px;" href="@Url.Action("Details", "Shippings", new { id = item.hs.Id })">Details</a>
+                                        <a class="btn btn-danger" style="border-radius: 13px;" href="@Url.Action("Delete", "Shippings", new { id = item.hs.Id })">Delete</a>
                                     </td>
                                 </tr>
                             }

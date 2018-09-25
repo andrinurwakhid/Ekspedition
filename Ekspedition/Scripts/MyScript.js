@@ -64,7 +64,7 @@
                 Branch_Id: $('#ebranch').val().trim()
             }
             //alert('Hai All Data Valid');
-            alert(data.Id + '-' + data.FirstName + '-' + data.LastName + '-' + data.Position + '-' + data.Username + '-' + data.Password + '-' + data.Branch_Id);
+            //alert(data.Id + '-' + data.FirstName + '-' + data.LastName + '-' + data.Position + '-' + data.Username + '-' + data.Password + '-' + data.Branch_Id);
             $.ajax({
                 type: 'POST',
                 url: '/DashboardAdmin/Edit',
@@ -80,7 +80,9 @@
                         //$('#efirstname,#elastname,#eposition,#eusername,#epassword').val('');
                     }
                     else {
-                        alert('Check your Database or SQL');
+                        alert('Check your Form'); 
+                        $('#updateadmin').css('background-color', '#ff3333').css('color', 'white');
+                        $('#updateadmin').text('Save Changes');
                     }
                 },
                 error: function (error) {
